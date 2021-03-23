@@ -1,0 +1,17 @@
+F:\self-product\CommonMormon\DDD\bin\Debug\netstandard2.1\DDD.deps.json
+F:\self-product\CommonMormon\DDD\bin\Debug\netstandard2.1\DDD.dll
+F:\self-product\CommonMormon\DDD\bin\Debug\netstandard2.1\DDD.pdb
+F:\self-product\CommonMormon\DDD\obj\Debug\netstandard2.1\DDD.AssemblyInfoInputs.cache
+F:\self-product\CommonMormon\DDD\obj\Debug\netstandard2.1\DDD.AssemblyInfo.cs
+F:\self-product\CommonMormon\DDD\obj\Debug\netstandard2.1\DDD.csproj.CoreCompileInputs.cache
+F:\self-product\CommonMormon\DDD\obj\Debug\netstandard2.1\DDD.dll
+F:\self-product\CommonMormon\DDD\obj\Debug\netstandard2.1\DDD.pdb
+F:\self-product\CommonMormon\src\DDD\bin\Debug\netstandard2.1\UltraNuke.CommonMormon.DDD.deps.json
+F:\self-product\CommonMormon\src\DDD\bin\Debug\netstandard2.1\UltraNuke.CommonMormon.DDD.dll
+F:\self-product\CommonMormon\src\DDD\bin\Debug\netstandard2.1\UltraNuke.CommonMormon.DDD.pdb
+F:\self-product\CommonMormon\src\DDD\obj\Debug\netstandard2.1\DDD.AssemblyInfoInputs.cache
+F:\self-product\CommonMormon\src\DDD\obj\Debug\netstandard2.1\DDD.AssemblyInfo.cs
+F:\self-product\CommonMormon\src\DDD\obj\Debug\netstandard2.1\DDD.csproj.CoreCompileInputs.cache
+F:\self-product\CommonMormon\src\DDD\obj\Debug\netstandard2.1\UltraNuke.CommonMormon.DDD.dll
+F:\self-product\CommonMormon\src\DDD\obj\Debug\netstandard2.1\UltraNuke.CommonMormon.DDD.pdb
+F:\self-product\CommonMormon\src\DDD\obj\Debug\netstandard2.1\DDD.csprojAssemblyReference.cache

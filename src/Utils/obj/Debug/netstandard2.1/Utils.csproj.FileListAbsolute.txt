@@ -1,0 +1,8 @@
+F:\self-product\CommonMormon\src\Utils\bin\Debug\netstandard2.1\UltraNuke.CommonMormon.Utils.deps.json
+F:\self-product\CommonMormon\src\Utils\bin\Debug\netstandard2.1\UltraNuke.CommonMormon.Utils.dll
+F:\self-product\CommonMormon\src\Utils\bin\Debug\netstandard2.1\UltraNuke.CommonMormon.Utils.pdb
+F:\self-product\CommonMormon\src\Utils\obj\Debug\netstandard2.1\Utils.AssemblyInfoInputs.cache
+F:\self-product\CommonMormon\src\Utils\obj\Debug\netstandard2.1\Utils.AssemblyInfo.cs
+F:\self-product\CommonMormon\src\Utils\obj\Debug\netstandard2.1\Utils.csproj.CoreCompileInputs.cache
+F:\self-product\CommonMormon\src\Utils\obj\Debug\netstandard2.1\UltraNuke.CommonMormon.Utils.dll
+F:\self-product\CommonMormon\src\Utils\obj\Debug\netstandard2.1\UltraNuke.CommonMormon.Utils.pdb
