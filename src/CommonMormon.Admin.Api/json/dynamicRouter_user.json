@@ -1,0 +1,120 @@
+{
+	"code": 200,
+	"data": [
+		{
+			"path": "/home/index",
+			"name": "home",
+			"redirect": "/home/book",
+			"meta": {
+				"icon": "HomeFilled",
+				"title": "首页",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": true,
+				"isKeepAlive": true
+			}
+		},
+		{
+			"path": "/home/book",
+			"name": "home-book",
+			"component": "/home/book/index",
+			"meta": {
+				"icon": "List",
+				"title": "作品",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"isKeepAlive": true
+			},
+			"children": [
+				{
+					"path": "/home/book/:bookId/detail",
+					"name": "home-book-detail",
+					"component": "/home/book/detail",
+					"meta": {
+						"icon": "Menu",
+						"title": "作品主页",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/home/book/:bookId/plot",
+					"name": "home-book-plot",
+					"component": "/home/book/plot",
+					"meta": {
+						"icon": "Menu",
+						"title": "故事情节",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/home/book/:bookId/actor",
+					"name": "home-book-actor",
+					"component": "/home/book/actor",
+					"meta": {
+						"icon": "Menu",
+						"title": "人物介绍",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/home/book/:bookId/organization",
+					"name": "home-book-organization",
+					"component": "/home/book/organization",
+					"meta": {
+						"icon": "Menu",
+						"title": "组织势力",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/home/book/:bookId/location",
+					"name": "home-book-location",
+					"component": "/home/book/location",
+					"meta": {
+						"icon": "Menu",
+						"title": "地理信息",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/home/book/:bookId/prop",
+					"name": "home-book-prop",
+					"component": "/home/book/prop",
+					"meta": {
+						"icon": "Menu",
+						"title": "物品记录",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				}
+			]
+		}
+	],
+	"msg": "成功"
+}

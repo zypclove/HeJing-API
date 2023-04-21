@@ -1,0 +1,618 @@
+{
+	"code": 200,
+	"data": [
+		{
+			"path": "/home/index",
+			"name": "home",
+			"component": "/home/index",
+			"meta": {
+				"icon": "HomeFilled",
+				"title": "首页",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": true,
+				"isKeepAlive": true
+			}
+		},
+		{
+			"path": "/home/writing",
+			"name": "writing",
+			"component": "/home/writing",
+			"meta": {
+				"icon": "EditPen",
+				"title": "写作",
+				"isLink": "",
+				"isHide": true,
+				"isFull": false,
+				"isAffix": false,
+				"isKeepAlive": true
+			}
+		},
+		{
+			"path": "/home/generator",
+			"name": "generator",
+			"component": "/home/generator",
+			"meta": {
+				"icon": "OfficeBuilding",
+				"title": "生成器",
+				"isLink": "",
+				"isHide": true,
+				"isFull": false,
+				"isAffix": false,
+				"isKeepAlive": true
+			}
+		},
+		{
+			"path": "/home/book",
+			"name": "home-book",
+			"component": "/home/book/index",
+			"meta": {
+				"icon": "List",
+				"title": "作品",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"isKeepAlive": true
+			},
+			"children": [
+				{
+					"path": "/home/book/:bookId/detail",
+					"name": "home-book-detail",
+					"component": "/home/book/detail",
+					"meta": {
+						"icon": "Menu",
+						"title": "作品主页",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/home/book/:bookId/plot",
+					"name": "home-book-plot",
+					"component": "/home/book/plot",
+					"meta": {
+						"icon": "Menu",
+						"title": "故事情节",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/home/book/:bookId/actor",
+					"name": "home-book-actor",
+					"component": "/home/book/actor",
+					"meta": {
+						"icon": "Menu",
+						"title": "人物介绍",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/home/book/:bookId/organization",
+					"name": "home-book-organization",
+					"component": "/home/book/organization",
+					"meta": {
+						"icon": "Menu",
+						"title": "组织势力",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/home/book/:bookId/location",
+					"name": "home-book-location",
+					"component": "/home/book/location",
+					"meta": {
+						"icon": "Menu",
+						"title": "地理信息",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/home/book/:bookId/prop",
+					"name": "home-book-prop",
+					"component": "/home/book/prop",
+					"meta": {
+						"icon": "Menu",
+						"title": "物品记录",
+						"isLink": "",
+						"isHide": true,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				}
+			]
+		},
+		{
+			"path": "/home/material",
+			"name": "material",
+			"component": "/home/material",
+			"meta": {
+				"icon": "School",
+				"title": "素材",
+				"isLink": "",
+				"isHide": true,
+				"isFull": false,
+				"isAffix": false,
+				"isKeepAlive": true
+			}
+		},
+		{
+			"path": "/home/data",
+			"name": "data",
+			"component": "/home/data",
+			"meta": {
+				"icon": "Histogram",
+				"title": "数据",
+				"isLink": "",
+				"isHide": true,
+				"isFull": false,
+				"isAffix": false,
+				"isKeepAlive": true
+			}
+		},
+		{
+			"path": "/management/book",
+			"name": "book-management",
+			"redirect": "/management/book/index",
+			"meta": {
+				"icon": "List",
+				"title": "作品管理",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"isKeepAlive": true
+			},
+			"children": [
+				{
+					"path": "/management/book/index",
+					"name": "management-book-index",
+					"component": "/management/book/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "全部作品",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/management/book/plot",
+					"name": "management-book-plot",
+					"component": "/management/book/plot/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "故事情节",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/management/book/actor",
+					"name": "management-book-actor",
+					"component": "/management/book/actor/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "人物介绍",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					},
+					"children": [
+						{
+							"path": "/management/book/actor/job",
+							"name": "management-book-actor-job",
+							"component": "/management/book/actor/job/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "人物职业",
+								"isLink": "",
+								"isHide": true,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/actor/position",
+							"name": "management-book-actor-position",
+							"component": "/management/book/actor/position/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "从业经历",
+								"isLink": "",
+								"isHide": true,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						}
+					]
+				},
+				{
+					"path": "/management/book/organization",
+					"name": "management-book-organization",
+					"component": "/management/book/organization/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "组织势力",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/management/book/location",
+					"name": "management-book-location",
+					"component": "/management/book/location/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "地理信息",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/management/book/prop",
+					"name": "management-book-prop",
+					"component": "/management/book/prop/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "物品记录",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/management/other",
+					"name": "management-other",
+					"redirect": "/management/book/element",
+					"meta": {
+						"icon": "MessageBox",
+						"title": "基础设定",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					},
+					"children": [
+						{
+							"path": "/management/book/level-realm",
+							"name": "management-book-level-realm",
+							"component": "/management/book/level-realm/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "境界设定",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/level-gradation",
+							"name": "management-book-level-gradation",
+							"component": "/management/book/level-gradation/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "境界层次",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/level-grade",
+							"name": "management-book-level-grade",
+							"component": "/management/book/level-grade/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "境界等级",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": false
+							}
+						},
+						{
+							"path": "/management/book/actor-specy-category",
+							"name": "management-book-actor-specy-category",
+							"component": "/management/book/actor-specy-category/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "种族分类",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/organization-category",
+							"name": "management-book-organization-category",
+							"component": "/management/book/organization-category/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "组织分类",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/organization-faction",
+							"name": "management-book-organization-faction",
+							"component": "/management/book/organization-faction/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "组织派系",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/job",
+							"name": "management-book-job",
+							"component": "/management/book/job/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "职业信息",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/position",
+							"name": "management-book-position",
+							"component": "/management/book/position/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "职务信息",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/location-area-category",
+							"name": "management-book-location-area-category",
+							"component": "/management/book/location-area-category/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "按区域分类",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/location-type-category",
+							"name": "management-book-location-type-category",
+							"component": "/management/book/location-type-category/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "按类型分类",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/prop-category",
+							"name": "management-book-prop-category",
+							"component": "/management/book/prop-category/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "物品分类",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/element",
+							"name": "management-book-element",
+							"component": "/management/book/element/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "故事元素",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/system",
+							"name": "management-book-system",
+							"component": "/management/book/system/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "故事体系",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"path": "/system",
+			"name": "system",
+			"redirect": "/system/accountManage",
+			"meta": {
+				"icon": "Tools",
+				"title": "系统管理",
+				"isLink": "",
+				"isHide": false,
+				"isFull": false,
+				"isAffix": false,
+				"isKeepAlive": true
+			},
+			"children": [
+				{
+					"path": "/system/accountManage",
+					"name": "accountManage",
+					"component": "/system/accountManage/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "账号管理",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/system/roleManage",
+					"name": "roleManage",
+					"component": "/system/roleManage/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "角色管理",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/system/menuMange",
+					"name": "menuMange",
+					"component": "/system/menuMange/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "菜单管理",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/system/departmentManage",
+					"name": "departmentManage",
+					"component": "/system/departmentManage/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "部门管理",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/system/dictManage",
+					"name": "dictManage",
+					"component": "/system/dictManage/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "字典管理",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/system/timingTask",
+					"name": "timingTask",
+					"component": "/system/timingTask/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "定时任务",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				},
+				{
+					"path": "/system/systemLog",
+					"name": "systemLog",
+					"component": "/system/systemLog/index",
+					"meta": {
+						"icon": "Menu",
+						"title": "系统日志",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					}
+				}
+			]
+		}
+	],
+	"msg": "成功"
+}
