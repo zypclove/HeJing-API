@@ -1,4 +1,4 @@
-﻿{
+{
   "Serilog": {
     "MinimumLevel": {
       "Default": "Error",
@@ -20,7 +20,7 @@
       {
         "Name": "PostgreSQL",
         "Args": {
-          "connectionString": "PORT=5432;DATABASE=id4admin;HOST=1.15.64.182;PASSWORD=fuqing68;USER ID=postgres;",
+          "connectionString": "PORT=5432;DATABASE=id4admin;HOST=localhost;PASSWORD=fuqing68+++;USER ID=postgres;",
           "tableName": "Log",
           "columnOptionsSection": {
             "addStandardColumns": [ "LogEvent" ],
