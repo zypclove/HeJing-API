@@ -82,10 +82,10 @@ namespace CommonMormon.Admin.Api.Controllers
         public Root GetList()
         {
             var userId = User.FindFirst(JwtClaimTypes.Subject);
-            var path = Path.GetFullPath("./") + "\\json\\dynamicRouter_user.json";
+            var path = Path.GetFullPath("./json/dynamicRouter_user.json");
             if (userId.Value.Equals("db07b79e-a98f-4b20-b37d-99558771d162"))
             {
-                path = Path.GetFullPath("./") + "\\json\\dynamicRouter_admin.json";
+                path = Path.GetFullPath("./json/dynamicRouter_admin.json");
             }
             using var sr = new StreamReader(path);
             return JsonConvert.DeserializeObject<Root>(sr.ReadToEnd());
