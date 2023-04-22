@@ -9,6 +9,7 @@ using CommonMormon.Admin.EntityFramework.Shared.Entities.Identity;
 using CommonMormon.Shared.Dtos;
 using CommonMormon.Shared.Dtos.Identity;
 using HealthChecks.UI.Client;
+using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
@@ -118,13 +119,11 @@ namespace CommonMormon.Admin.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            if (adminApiConfiguration.IdentityServerBaseUrl.StartsWith("https"))
+            app.Use(async (ctx, next) =>
             {
-                app.Use((context, next) => { 
-                    context.Request.Scheme = "https"; 
-                    return next(); 
-                });
-            }
+                ctx.SetIdentityServerOrigin(adminApiConfiguration.IdentityServerBaseUrl);
+                await next();
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
