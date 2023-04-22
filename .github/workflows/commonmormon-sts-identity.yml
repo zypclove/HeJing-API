@@ -46,4 +46,4 @@ jobs:
         host: ${{ secrets.TENCENT_CLOUD_IP }}
         username: ${{ secrets.TENCENT_CLOUD_NAME }}
         password: ${{ secrets.TENCENT_CLOUD_PASSWORD }}
-        script: cd /ultranuke/commonmormon-sts-identity && sudo sh app.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+        script: cd /ultranuke/commonmormon-sts-identity && sudo sh build.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
