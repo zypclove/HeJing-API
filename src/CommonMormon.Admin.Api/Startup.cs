@@ -118,6 +118,11 @@ namespace CommonMormon.Admin.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            if (adminApiConfiguration.RequireHttpsMetadata)
+            {
+                app.Use((context, next) => { context.Request.Scheme = "https"; return next(); });
+            }
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
