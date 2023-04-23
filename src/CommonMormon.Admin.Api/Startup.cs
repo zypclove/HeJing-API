@@ -122,6 +122,7 @@ namespace CommonMormon.Admin.Api
             app.Use(async (ctx, next) =>
             {
                 ctx.SetIdentityServerOrigin(adminApiConfiguration.IdentityServerBaseUrl);
+                ctx.SetIdentityServerBasePath(adminApiConfiguration.IdentityServerBaseUrl);
                 await next();
             });
 
