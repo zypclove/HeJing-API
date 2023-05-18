@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using CommonMormon.Admin.Api.Configuration.Constants;
-using CommonMormon.Admin.Api.Dtos.Roles;
 using CommonMormon.Admin.Api.Dtos.Users;
 using CommonMormon.Admin.Api.ExceptionHandling;
 using CommonMormon.Admin.Api.Helpers.Localization;
@@ -13,12 +11,7 @@ using Newtonsoft.Json;
 using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity;
 using Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Services.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CommonMormon.Admin.Api.Controllers
 {

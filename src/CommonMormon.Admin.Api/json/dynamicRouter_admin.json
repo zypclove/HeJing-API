@@ -300,12 +300,12 @@
 					}
 				},
 				{
-					"path": "/management/other",
-					"name": "management-other",
-					"redirect": "/management/book/element",
+					"path": "/management/book/world/background",
+					"name": "management-book-world-background",
+					"redirect": "/management/book/location-area-category",
 					"meta": {
-						"icon": "MessageBox",
-						"title": "基础设定",
+						"icon": "Menu",
+						"title": "世界背景",
 						"isLink": "",
 						"isHide": false,
 						"isFull": false,
@@ -314,12 +314,12 @@
 					},
 					"children": [
 						{
-							"path": "/management/book/level-realm",
-							"name": "management-book-level-realm",
-							"component": "/management/book/level-realm/index",
+							"path": "/management/book/location-area-category",
+							"name": "management-book-location-area-category",
+							"component": "/management/book/location-area-category/index",
 							"meta": {
 								"icon": "Menu",
-								"title": "境界设定",
+								"title": "地理按区域分类",
 								"isLink": "",
 								"isHide": false,
 								"isFull": false,
@@ -328,12 +328,12 @@
 							}
 						},
 						{
-							"path": "/management/book/level-gradation",
-							"name": "management-book-level-gradation",
-							"component": "/management/book/level-gradation/index",
+							"path": "/management/book/location-type-category",
+							"name": "management-book-location-type-category",
+							"component": "/management/book/location-type-category/index",
 							"meta": {
 								"icon": "Menu",
-								"title": "境界层次",
+								"title": "地理按类型分类",
 								"isLink": "",
 								"isHide": false,
 								"isFull": false,
@@ -342,19 +342,35 @@
 							}
 						},
 						{
-							"path": "/management/book/level-grade",
-							"name": "management-book-level-grade",
-							"component": "/management/book/level-grade/index",
+							"path": "/management/book/prop-category",
+							"name": "management-book-prop-category",
+							"component": "/management/book/prop-category/index",
 							"meta": {
 								"icon": "Menu",
-								"title": "境界等级",
+								"title": "物品分类",
 								"isLink": "",
 								"isHide": false,
 								"isFull": false,
 								"isAffix": false,
-								"isKeepAlive": false
+								"isKeepAlive": true
 							}
-						},
+						}
+					]
+				},
+				{
+					"path": "/management/book/character/setting",
+					"name": "management-book-character-setting",
+					"redirect": "/management/book/actor-specy-category",
+					"meta": {
+						"icon": "Menu",
+						"title": "人物设定",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					},
+					"children": [
 						{
 							"path": "/management/book/actor-specy-category",
 							"name": "management-book-actor-specy-category",
@@ -424,42 +440,30 @@
 								"isAffix": false,
 								"isKeepAlive": true
 							}
-						},
+						}
+					]
+				},
+				{
+					"path": "/management/book/power/system",
+					"name": "management-book-power-system",
+					"redirect": "/management/book/system",
+					"meta": {
+						"icon": "Menu",
+						"title": "力量体系",
+						"isLink": "",
+						"isHide": false,
+						"isFull": false,
+						"isAffix": false,
+						"isKeepAlive": true
+					},
+					"children": [
 						{
-							"path": "/management/book/location-area-category",
-							"name": "management-book-location-area-category",
-							"component": "/management/book/location-area-category/index",
+							"path": "/management/book/system",
+							"name": "management-book-system",
+							"component": "/management/book/system/index",
 							"meta": {
 								"icon": "Menu",
-								"title": "按区域分类",
-								"isLink": "",
-								"isHide": false,
-								"isFull": false,
-								"isAffix": false,
-								"isKeepAlive": true
-							}
-						},
-						{
-							"path": "/management/book/location-type-category",
-							"name": "management-book-location-type-category",
-							"component": "/management/book/location-type-category/index",
-							"meta": {
-								"icon": "Menu",
-								"title": "按类型分类",
-								"isLink": "",
-								"isHide": false,
-								"isFull": false,
-								"isAffix": false,
-								"isKeepAlive": true
-							}
-						},
-						{
-							"path": "/management/book/prop-category",
-							"name": "management-book-prop-category",
-							"component": "/management/book/prop-category/index",
-							"meta": {
-								"icon": "Menu",
-								"title": "物品分类",
+								"title": "体系设定",
 								"isLink": "",
 								"isHide": false,
 								"isFull": false,
@@ -473,7 +477,7 @@
 							"component": "/management/book/element/index",
 							"meta": {
 								"icon": "Menu",
-								"title": "故事元素",
+								"title": "元素设定",
 								"isLink": "",
 								"isHide": false,
 								"isFull": false,
@@ -482,17 +486,45 @@
 							}
 						},
 						{
-							"path": "/management/book/system",
-							"name": "management-book-system",
-							"component": "/management/book/system/index",
+							"path": "/management/book/level-realm",
+							"name": "management-book-level-realm",
+							"component": "/management/book/level-realm/index",
 							"meta": {
 								"icon": "Menu",
-								"title": "故事体系",
+								"title": "境界设定",
 								"isLink": "",
 								"isHide": false,
 								"isFull": false,
 								"isAffix": false,
 								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/level-gradation",
+							"name": "management-book-level-gradation",
+							"component": "/management/book/level-gradation/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "境界层次",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": true
+							}
+						},
+						{
+							"path": "/management/book/level-grade",
+							"name": "management-book-level-grade",
+							"component": "/management/book/level-grade/index",
+							"meta": {
+								"icon": "Menu",
+								"title": "境界等级",
+								"isLink": "",
+								"isHide": false,
+								"isFull": false,
+								"isAffix": false,
+								"isKeepAlive": false
 							}
 						}
 					]
