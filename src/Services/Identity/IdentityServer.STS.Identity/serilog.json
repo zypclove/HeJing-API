@@ -17,17 +17,17 @@
                     "rollingInterval": "Day"
                 }
             },
-            {
-                "Name": "MSSqlServer",
-                "Args": {
-                    "connectionString": "PORT=5432;DATABASE=is4admin;HOST=1.15.64.182;PASSWORD=fuqing68+++;USER ID=postgres;",
-                    "tableName": "Log",
-                    "columnOptionsSection": {
-                        "addStandardColumns": [ "LogEvent" ],
-                        "removeStandardColumns": [ "Properties" ]
-                    }
-                }
+          {
+            "Name": "PostgreSQL",
+            "Args": {
+              "connectionString": "Server=54.179.24.252; User Id=postgres; Database=is4admin; Port=5432; Password=fuqing68+++; SSL Mode=Prefer; Trust Server Certificate=true",
+              "tableName": "Log",
+              "columnOptionsSection": {
+                "addStandardColumns": [ "LogEvent" ],
+                "removeStandardColumns": [ "Properties" ]
+              }
             }
+          }
         ]
     }
 }
