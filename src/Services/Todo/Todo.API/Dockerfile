@@ -8,8 +8,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["src/Services/Todo/Todo.API/Todo.API.csproj", "src/Services/Todo/Todo.API/"]
-COPY ["src/Services/Infrastructure/CommonMormon.Infrastructure/CommonMormon.Infrastructure.csproj", "src/Services/Infrastructure/CommonMormon.Infrastructure/"]
 COPY ["src/Services/Todo/Todo.Domain/Todo.Domain.csproj", "src/Services/Todo/Todo.Domain/"]
+COPY ["src/Services/Infrastructure/CommonMormon.Infrastructure/CommonMormon.Infrastructure.csproj", "src/Services/Infrastructure/CommonMormon.Infrastructure/"]
 COPY ["src/Services/Todo/Todo.Infrastructure/Todo.Infrastructure.csproj", "src/Services/Todo/Todo.Infrastructure/"]
 COPY ["src/Services/Todo/Todo.Shared/Todo.Shared.csproj", "src/Services/Todo/Todo.Shared/"]
 RUN dotnet restore "src/Services/Todo/Todo.API/Todo.API.csproj"
