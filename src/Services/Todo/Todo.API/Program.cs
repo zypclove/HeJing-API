@@ -28,8 +28,6 @@ services
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     });
 
-//RegisterAuthentication(services, todoAPIConfiguration);
-
 services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -54,8 +52,6 @@ services.Scan(
         t => t.Name.EndsWith("Queries", StringComparison.Ordinal)))
     .AsSelf()
     .WithScopedLifetime());
-
-//builder.Services.AddScoped<StoryService>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateTodoItemCommand).Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateTodoItemCommandHandler).Assembly));
@@ -92,33 +88,4 @@ app.MapGet("/test", (IConfiguration configuration) =>
 
 app.MapControllers();
 
-//app.MapControllers()
-//    .RequireAuthorization("ApiScope");
-
 app.Run();
-
-
-static void RegisterAuthentication(IServiceCollection services, TodoApiConfiguration todoAPIConfiguration)
-{
-    services
-        .AddAuthentication("Bearer")
-        .AddJwtBearer("Bearer", options =>
-        {
-            options.Authority = todoAPIConfiguration.IdentityServerBaseUrl;
-            options.MetadataAddress = todoAPIConfiguration.IdentityServerBaseUrl + "/.well-known/openid-configuration";
-            options.RequireHttpsMetadata = todoAPIConfiguration.RequireHttpsMetadata;
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateAudience = false
-            };
-        });
-
-    services.AddAuthorization(options =>
-    {
-        options.AddPolicy("ApiScope", policy =>
-        {
-            policy.RequireAuthenticatedUser();
-            policy.RequireClaim("scope", "commonmormon_identity_todo_api");
-        });
-    });
-}
