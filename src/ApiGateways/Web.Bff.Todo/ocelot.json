@@ -10,7 +10,23 @@
         }
       ],
       "UpstreamPathTemplate": "/todo/{everything}",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "OcelotKey",
+        "AllowedScopes": [ "commonmormon_identity_todo_api" ]
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/connect/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44310
+        }
+      ],
+      "UpstreamPathTemplate": "/auth/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
     }
   ],
   "GlobalConfiguration": {

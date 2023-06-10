@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddJsonFile("ocelot.json");
+RegisterJsonFile(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -17,23 +18,32 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.UseOcelot().Wait();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseOcelot().Wait();
 
 app.Run();
 
 // ÑéÖ¤
 static void RegisterAuthentication(IServiceCollection services)
 {
-
+    var authenticationProviderKey = "OcelotKey";
     services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+                .AddJwtBearer(authenticationProviderKey, options =>
                 {
                     options.Authority = "https://localhost:44310";
                     options.RequireHttpsMetadata = true;
-                    options.Audience = "gateway_api";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false
+                    };
                 });
+}
+
+static void RegisterJsonFile(IConfigurationBuilder builder)
+{
+    builder.AddJsonFile("ocelot.json");
 }
