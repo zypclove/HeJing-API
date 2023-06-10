@@ -17,7 +17,7 @@ RegisterJsonFile(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-RegisterAuthentication(builder.Services, BffTodoConfiguration bffTodoConfiguration);
+RegisterAuthentication(builder.Services, bffTodoConfiguration);
 
 builder.Services.AddOcelot();
 
