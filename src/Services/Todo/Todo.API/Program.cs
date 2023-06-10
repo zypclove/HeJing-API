@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.Reflection;
@@ -29,27 +28,7 @@ services
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     });
 
-services
-    .AddAuthentication("Bearer")
-    .AddJwtBearer("Bearer", options =>
-    {
-        options.Authority = todoAPIConfiguration.IdentityServerBaseUrl;
-        options.MetadataAddress = todoAPIConfiguration.IdentityServerBaseUrl + "/.well-known/openid-configuration";
-        options.RequireHttpsMetadata = todoAPIConfiguration.RequireHttpsMetadata;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateAudience = false
-        };
-    });
-
-services.AddAuthorization(options =>
-{
-    options.AddPolicy("ApiScope", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "todo_api");
-    });
-});
+//RegisterAuthentication(services, todoAPIConfiguration);
 
 services.AddCors(options =>
 {
@@ -117,3 +96,28 @@ app.MapControllers();
 //    .RequireAuthorization("ApiScope");
 
 app.Run();
+
+static void RegisterAuthentication(IServiceCollection services, TodoApiConfiguration todoAPIConfiguration)
+{
+    services
+        .AddAuthentication("Bearer")
+        .AddJwtBearer("Bearer", options =>
+        {
+            options.Authority = todoAPIConfiguration.IdentityServerBaseUrl;
+            options.MetadataAddress = todoAPIConfiguration.IdentityServerBaseUrl + "/.well-known/openid-configuration";
+            options.RequireHttpsMetadata = todoAPIConfiguration.RequireHttpsMetadata;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false
+            };
+        });
+
+    services.AddAuthorization(options =>
+    {
+        options.AddPolicy("ApiScope", policy =>
+        {
+            policy.RequireAuthenticatedUser();
+            policy.RequireClaim("scope", "commonmormon_identity_todo_api");
+        });
+    });
+}

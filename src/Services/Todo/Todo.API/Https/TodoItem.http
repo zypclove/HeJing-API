@@ -1,11 +1,11 @@
 ﻿﻿@hostname = localhost
-@port = 7118
+@port = 7225
 @host = {{hostname}}:{{port}}
 @url = https://{{host}}
 @contentType = application/json
 
 ###获取清单
-GET {{url}}/Todo/TodoItem/Query
+GET {{url}}/api/Todo/TodoItem/Query
 Content-Type:{{contentType}}
 
 ###获取详情

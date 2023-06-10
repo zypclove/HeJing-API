@@ -1,7 +1,7 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: commonmormon-identityserver-admin
+name: commonmormon-todo-api
 
 on:
   push:
@@ -29,13 +29,13 @@ jobs:
       id: meta
       uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
       with:
-        images: zcqiand/commonmormon-identityserver-admin
+        images: zcqiand/commonmormon-todo-api
 
     - name: Build and push Docker image
       uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
       with:
         context: .
-        file: ./src/Services/Identity/IdentityServer.Admin/Dockerfile
+        file: ./src/Services/Todo/Todo.API/Dockerfile
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
@@ -46,4 +46,4 @@ jobs:
         host: ${{ secrets.TENCENT_CLOUD_IP }}
         username: ${{ secrets.TENCENT_CLOUD_NAME }}
         password: ${{ secrets.TENCENT_CLOUD_PASSWORD }}
-        script: cd /home/app/commonmormon-identityserver-admin && sudo sh build.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
+        script: cd /home/app/commonmormon-todo-api && sudo sh build.sh ${{ secrets.DOCKER_USERNAME }} ${{ secrets.DOCKER_PASSWORD }}
