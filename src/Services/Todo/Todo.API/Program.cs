@@ -97,6 +97,7 @@ app.MapControllers();
 
 app.Run();
 
+
 static void RegisterAuthentication(IServiceCollection services, TodoApiConfiguration todoAPIConfiguration)
 {
     services
