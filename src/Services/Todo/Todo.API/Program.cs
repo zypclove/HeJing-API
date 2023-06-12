@@ -1,7 +1,6 @@
+using CommonMormon.Infrastructure.API;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using System.Reflection;
 using Todo.API.CommandHandlers;
 using Todo.API.Mappers;
 using Todo.API.Options;
@@ -9,26 +8,22 @@ using Todo.API.Queries;
 using Todo.Infrastructure;
 using Todo.Shared.Commands.TodoItem;
 
-var builder = WebApplication.CreateBuilder(args);
-
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
 
-var configuration = builder.Configuration;
-var services = builder.Services;
+var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
 
-var todoAPIConfiguration = configuration.GetSection(nameof(TodoApiConfiguration)).Get<TodoApiConfiguration>();
-services.AddSingleton(todoAPIConfiguration);
-// Add services to the container.
-
-services
+//AddControllers
+builder.Services
     .AddControllers()
     .AddNewtonsoftJson(options =>
     {
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     });
 
-services.AddCors(options =>
+//AddCors
+builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
@@ -38,14 +33,25 @@ services.AddCors(options =>
     });
 });
 
+//AddApplicationOptions
+builder.Services.Configure<AppSettings>(builder.Configuration);
 
-services.AddDbContext<TodoDbContext>(options =>
+//AddDbContext
+builder.Services.AddDbContext<TodoDbContext>(options =>
 {
     options.EnableSensitiveDataLogging(true);
-    options.UseNpgsql(configuration.GetConnectionString("TodoDbConnection"), b => b.MigrationsAssembly("Todo.API"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("TodoDbConnection"), b => b.MigrationsAssembly("Todo.API"));
 });
 
-services.Scan(
+//AddCommand
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(CreateTodoItemCommand).Assembly);
+    cfg.RegisterServicesFromAssembly(typeof(CreateTodoItemCommandHandler).Assembly);
+});
+
+//AddQueries
+builder.Services.Scan(
     scan => scan
     .FromAssemblyOf<TodoItemQueries>()
     .AddClasses(classes => classes.Where(
@@ -53,39 +59,12 @@ services.Scan(
     .AsSelf()
     .WithScopedLifetime());
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateTodoItemCommand).Assembly));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateTodoItemCommandHandler).Assembly));
-
-services.AddAutoMapper(typeof(DomainToResultProfile));
-services.AddAutoMapper(typeof(CommandToDomainProfile));
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-services.AddEndpointsApiExplorer();
-services.ConfigureSwaggerGen(options =>
-{
-    options.CustomSchemaIds(x => x.FullName);
-});
-services.AddSwaggerGen();
+//AddAutoMapper
+builder.Services.AddAutoMapper(typeof(DomainToResultProfile));
+builder.Services.AddAutoMapper(typeof(CommandToDomainProfile));
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
-app.UseCors();
-
-app.MapGet("/test", (IConfiguration configuration) =>
-{
-    return $"{Assembly.GetExecutingAssembly().FullName};当前时间：{DateTime.Now}";
-});
+app.UseServiceDefaults();
 
 app.MapControllers();
-
 app.Run();

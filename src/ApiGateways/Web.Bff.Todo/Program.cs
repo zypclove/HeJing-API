@@ -1,23 +1,30 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Todo.API.Options;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var configuration = builder.Configuration;
-var services = builder.Services;
-
-var bffTodoConfiguration = configuration.GetSection(nameof(BffTodoConfiguration)).Get<BffTodoConfiguration>();
-services.AddSingleton(bffTodoConfiguration);
-
-RegisterJsonFile(builder.Configuration);
+var gatewaySection = builder.Configuration.GetSection("Gateway");
+var gwConfigFile = gatewaySection.GetValue<string>("ConfigFile");
+builder.Configuration.AddJsonFile(gwConfigFile);
 
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
 
-RegisterAuthentication(builder.Services, bffTodoConfiguration);
+var authenticationProviderKey = gatewaySection.GetValue<string>("AuthenticationProviderKey");
+var identitySection = builder.Configuration.GetSection("Identity");
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(authenticationProviderKey, options =>
+    {
+        var identityServerUrl = identitySection.GetValue<string>("IdentityServerUrl");
+        var requireHttpsMetadata = identitySection.GetValue<bool>("RequireHttpsMetadata");
+        var audience = identitySection.GetValue<string>("Audience");
+        options.Authority = identityServerUrl;
+        options.RequireHttpsMetadata = requireHttpsMetadata;
+        options.Audience = audience;
+        options.TokenValidationParameters.ValidateAudience = false;
+    });
 
 builder.Services.AddOcelot();
 
@@ -33,24 +40,3 @@ app.MapControllers();
 app.UseOcelot().Wait();
 
 app.Run();
-
-// ÑéÖ¤
-static void RegisterAuthentication(IServiceCollection services, BffTodoConfiguration bffTodoConfiguration)
-{
-    var authenticationProviderKey = "OcelotKey";
-    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(authenticationProviderKey, options =>
-                {
-                    options.Authority = bffTodoConfiguration.IdentityServerBaseUrl;
-                    options.RequireHttpsMetadata = bffTodoConfiguration.RequireHttpsMetadata;
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateAudience = false
-                    };
-                });
-}
-
-static void RegisterJsonFile(IConfigurationBuilder builder)
-{
-    builder.AddJsonFile("ocelot.json");
-}
