@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.Reflection;
@@ -29,28 +28,6 @@ services
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
     });
 
-services
-    .AddAuthentication("Bearer")
-    .AddJwtBearer("Bearer", options =>
-    {
-        options.Authority = todoAPIConfiguration.IdentityServerBaseUrl;
-        options.MetadataAddress = todoAPIConfiguration.IdentityServerBaseUrl + "/.well-known/openid-configuration";
-        options.RequireHttpsMetadata = todoAPIConfiguration.RequireHttpsMetadata;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateAudience = false
-        };
-    });
-
-services.AddAuthorization(options =>
-{
-    options.AddPolicy("ApiScope", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "todo_api");
-    });
-});
-
 services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
@@ -75,8 +52,6 @@ services.Scan(
         t => t.Name.EndsWith("Queries", StringComparison.Ordinal)))
     .AsSelf()
     .WithScopedLifetime());
-
-//builder.Services.AddScoped<StoryService>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateTodoItemCommand).Assembly));
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateTodoItemCommandHandler).Assembly));
@@ -112,8 +87,5 @@ app.MapGet("/test", (IConfiguration configuration) =>
 });
 
 app.MapControllers();
-
-//app.MapControllers()
-//    .RequireAuthorization("ApiScope");
 
 app.Run();
