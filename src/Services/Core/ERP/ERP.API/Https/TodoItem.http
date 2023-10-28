@@ -1,0 +1,41 @@
+﻿﻿@hostname = localhost
+@port = 7225
+@host = {{hostname}}:{{port}}
+@url = https://{{host}}
+@contentType = application/json
+
+###获取清单
+GET {{url}}/api/Todo/TodoItem/Query
+Content-Type:{{contentType}}
+
+###获取详情
+GET {{url}}/api/Todo/TodoItem/Get?id=01890000-385c-84a9-39d1-08db67eb1081
+Content-Type:{{contentType}}
+
+
+###创建
+POST {{url}}/api/Todo/TodoItem/Create
+Content-Type:{{contentType}}
+
+{
+  "name": "测试一个任务",
+  "nodes": ""
+}
+
+###更新
+POST {{url}}/api/Todo/TodoItem/Update
+Content-Type:{{contentType}}
+
+{
+  "id": "01890000-385c-84a9-39d1-08db67eb1081",
+  "name": "测试一个任务(已修改)",
+  "nodes": ""
+}
+
+###删除
+POST {{url}}/api/Todo/TodoItem/Delete
+Content-Type:{{contentType}}
+
+{
+    "id": "01890000-385c-84a9-2579-08db67eb4d5e"
+}
