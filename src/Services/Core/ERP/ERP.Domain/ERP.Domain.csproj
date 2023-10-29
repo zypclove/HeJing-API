@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Infrastructure\CommonMormon.Infrastructure\CommonMormon.Infrastructure.csproj" />
+    <ProjectReference Include="..\ERP.Shared\ERP.Shared.csproj" />
   </ItemGroup>
 
 </Project>

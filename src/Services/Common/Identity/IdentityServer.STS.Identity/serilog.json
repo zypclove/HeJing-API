@@ -18,9 +18,9 @@
                 }
             },
           {
-            "Name": "PostgreSQL",
+            "Name": "SqlServer",
             "Args": {
-              "connectionString": "Server=54.179.24.252; User Id=postgres; Database=is4admin; Port=5432; Password=fuqing68+++; SSL Mode=Prefer; Trust Server Certificate=true",
+              "connectionString": "Data Source=.;Initial Catalog=is4admin;User ID=sa;Password=fuqing68+++",
               "tableName": "Log",
               "columnOptionsSection": {
                 "addStandardColumns": [ "LogEvent" ],

@@ -7,11 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTO\" />
     <Folder Include="Models\" />
     <Folder Include="IntegrationEvents\" />
     <Folder Include="Constants\" />
-    <Folder Include="Enums\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,28 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="XML"%>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" %>
+<%@ Property Name="RootNamespace" Type="String" Category="Context" %>
+<%@ Property Name="ClassName" Type="String" Category="Context" %>
+<%@ Map Name="CSharpAlias" Src="System-CSharpAlias" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Design" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<script runat="template">
+<!-- #include file="common.cst" -->
+</script>
+namespace <%=RootNamespace%>.Shared.DTO.<%= StringUtil.ToPascalCase(ClassName) %>;
+
+/// <summary>
+/// <%= SourceTable.Description %>
+/// </summary>
+public class <%= StringUtil.ToPascalCase(ClassName) %>GetInDto
+{
+    <% foreach (ColumnSchema column in SourceTable.Columns) {  
+        if (column.IsPrimaryKeyMember) { 
+    %>
+    /// <summary>
+    /// <%= column.Description %>
+    /// </summary>
+    public <%= SimplifyType(CSharpAlias[column.SystemType.FullName]) %><%= column.AllowDBNull ? "?" : "" %> <%= StringUtil.ToPascalCase(column.Name) %> { get; set; }<%= !column.AllowDBNull && CSharpAlias[column.SystemType.FullName] == "string" ? " = null!;" : "" %>
+    <% }} %>
+}
+

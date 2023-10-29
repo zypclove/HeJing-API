@@ -1,5 +1,5 @@
 using ERP.API.Mappers;
-using ERP.Infrastructure;
+using ERP.HostApp.Services;
 using Newtonsoft.Json;
 using System.Reflection;
 
@@ -34,13 +34,13 @@ services.AddDbContext<ERPDbContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("ERPDbConnection")!, b => b.MigrationsAssembly("ERP.API"));
 });
 
-//services.Scan(
-//    scan => scan
-//    .FromAssemblyOf<UserService>()
-//    .AddClasses(classes => classes.Where(
-//        t => t.Name.EndsWith("Service", StringComparison.Ordinal)))
-//    .AsSelf()
-//    .WithScopedLifetime());
+services.Scan(
+    scan => scan
+    .FromAssemblyOf<BusinessEnterpriseCategoryService>()
+    .AddClasses(classes => classes.Where(
+        t => t.Name.EndsWith("Service", StringComparison.Ordinal)))
+    .AsSelf()
+    .WithScopedLifetime());
 
 services.AddAutoMapper(typeof(DtoToDomainProfile));
 

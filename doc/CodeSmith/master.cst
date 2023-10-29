@@ -1,0 +1,359 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="Text" OutputType="None" %>
+<%@ Property Name="SourceDatabase" Type="SchemaExplorer.DatabaseSchema" Category="Context" DeepLoad="True" %>
+<%@ Property Name="RootNamespace" Type="String" Category="Context" DeepLoad="True" %>
+<%@ Property Name="AreaName" Type="String" Category="Context" DeepLoad="True" %>
+<%@ Property Name="TableOwner" Type="String" Category="Context" DeepLoad="True" %>
+<%@ Property Name="OutputDirectory" Type="String" Category="Output" DeepLoad="True" %>
+<%@ Register Name="CreateInDtoTemplate" Template="CreateInDto.cs.cst" %>
+<%@ Register Name="UpdateInDtoTemplate" Template="UpdateInDto.cs.cst" %>
+<%@ Register Name="DeleteInDtoTemplate" Template="DeleteInDto.cs.cst" %>
+<%@ Register Name="BatchDeleteInDtoTemplate" Template="BatchDeleteInDto.cs.cst" %>
+<%@ Register Name="QueryInDtoTemplate" Template="QueryInDto.cs.cst" %>
+<%@ Register Name="QuerytOutDtoTemplate" Template="QueryOutDto.cs.cst" %>
+<%@ Register Name="GetInDtoTemplate" Template="GetInDto.cs.cst" %>
+<%@ Register Name="GetOutDtoTemplate" Template="GetOutDto.cs.cst" %>
+<%@ Register Name="ControllerTemplate" Template="Controller.cs.cst" %>
+<%@ Register Name="ServiceTemplate" Template="Service.cs.cst" %>
+<%@ Register Name="UIApiTemplate" Template="UIApi.ts.cst" %>
+<%@ Register Name="UIListTemplate" Template="UIList.ts.cst" %>
+<%@ Register Name="UIEditTemplate" Template="UIEdit.ts.cst" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Design" %>
+<%@ Import NameSpace="System.IO" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<script runat="template">
+private int _currentStep = 0;
+public override void Render(TextWriter writer)
+{
+    this.Progress.MaximumValue = 100;
+    
+    DateTime startTime = DateTime.Now;
+    
+    if (!Directory.Exists(this.OutputDirectory))
+    {
+        Trace.WriteLine("Creating output directory...");
+        Directory.CreateDirectory(this.OutputDirectory);
+        Directory.CreateDirectory(this.OutputDirectory+"\\Controllers\\");
+        Directory.CreateDirectory(this.OutputDirectory+"\\Services\\");
+        Directory.CreateDirectory(this.OutputDirectory+"\\DTO\\");
+        Directory.CreateDirectory(this.OutputDirectory+"\\ui\\");
+        Directory.CreateDirectory(this.OutputDirectory+"\\ui\\api\\");
+        Directory.CreateDirectory(this.OutputDirectory+"\\ui\\view\\");
+    }
+    else
+    {
+        Trace.WriteLine("Cleaning up existing output directory...");
+        this.DeleteFiles(this.OutputDirectory+"\\Controllers\\", "*.cs");
+        this.DeleteFiles(this.OutputDirectory+"\\Services\\", "*.cs");
+        this.DeleteFiles(this.OutputDirectory+"\\DTO\\", "*.cs");
+        this.DeleteFiles(this.OutputDirectory+"\\ui\\api\\", "*.ts");
+        this.DeleteFiles(this.OutputDirectory+"\\ui\\view\\", "*.vue");
+    }
+    this.Progress.Value = 10;
+    _currentStep++;
+    
+    TableSchemaCollection tables = new TableSchemaCollection(SourceDatabase.Tables);
+	tables.Sort(new PropertyComparer("FullName"));
+    
+    // CreateInDtoTemplate
+    Trace.WriteLine("Building CreateInDtoTemplate files (*.cs)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToPascalCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "CreateInDto.cs...");
+            
+            CreateInDtoTemplate template = this.Create<CreateInDtoTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\DTO\\" + className + "CreateInDto.cs", true);
+    		this.Progress.PerformStep();
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // UpdateInDtoTemplate
+    Trace.WriteLine("Building UpdateInDtoTemplate files (*.cs)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToPascalCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "UpdateInDto.cs...");
+            
+            UpdateInDtoTemplate template = this.Create<UpdateInDtoTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\DTO\\" + className + "UpdateInDto.cs", true);
+    		this.Progress.PerformStep();       
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // DeleteInDtoTemplate
+    Trace.WriteLine("Building DeleteInDtoTemplate files (*.cs)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToPascalCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "DeleteInDto.cs...");
+            
+            DeleteInDtoTemplate template = this.Create<DeleteInDtoTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\DTO\\" + className + "DeleteInDto.cs", true);
+    		this.Progress.PerformStep();
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // BatchDeleteInDtoTemplate
+    Trace.WriteLine("Building BatchDeleteInDtoTemplate files (*.cs)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToPascalCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "BatchDeleteInDto.cs...");
+            
+            BatchDeleteInDtoTemplate template = this.Create<BatchDeleteInDtoTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\DTO\\" + className + "BatchDeleteInDto.cs", true);
+    		this.Progress.PerformStep();
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // QueryInDtoTemplate
+    Trace.WriteLine("Building QueryInDtoTemplate files (*.cs)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToPascalCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "QueryInDto.cs...");
+            
+            QueryInDtoTemplate template = this.Create<QueryInDtoTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\DTO\\" + className + "QueryInDto.cs", true);
+    		this.Progress.PerformStep();
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // QueryOutDtoTemplate
+    Trace.WriteLine("Building QueryOutDtoTemplate files (*.cs)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToPascalCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "QueryOutDto.cs...");
+            
+            QuerytOutDtoTemplate template = this.Create<QuerytOutDtoTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\DTO\\" + className + "QueryOutDto.cs", true);
+    		this.Progress.PerformStep();
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // GetInDtoTemplate
+    Trace.WriteLine("Building GetInDtoTemplate files (*.cs)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToPascalCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "GetInDto.cs...");
+            
+            GetInDtoTemplate template = this.Create<GetInDtoTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\DTO\\" + className + "GetInDto.cs", true);
+    		this.Progress.PerformStep();
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // GetOutDtoTemplate
+    Trace.WriteLine("Building GetOutDtoTemplate files (*.cs)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToPascalCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "GetOutDto.cs...");
+            
+            GetOutDtoTemplate template = this.Create<GetOutDtoTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\DTO\\" + className + "GetOutDto.cs", true);
+    		this.Progress.PerformStep();
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // ControllerTemplate
+    Trace.WriteLine("Building ControllerTemplate files (*.cs)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToPascalCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "Controller.cs...");
+            
+            ControllerTemplate template = this.Create<ControllerTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\Controllers\\" + className + "Controller.cs", true);
+    		this.Progress.PerformStep();
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // ServiceTemplate
+    Trace.WriteLine("Building ServiceTemplate files (*.cs)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToPascalCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "Service.cs...");
+            
+            ServiceTemplate template = this.Create<ServiceTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\Services\\" + className + "Service.cs", true);
+    		this.Progress.PerformStep();     
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // UIApiTemplate
+    Trace.WriteLine("Building UIApiTemplate files (*.ts)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToCamelCase(table.Name);
+    		Trace.WriteLine("Building file " + className + ".ts...");
+            
+            UIApiTemplate template = this.Create<UIApiTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\ui\\api\\" + className + ".ts", true);
+    		this.Progress.PerformStep();
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // UIListTemplate
+    Trace.WriteLine("Building UIListTemplate files (*.ts)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToCamelCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "-index.ts...");
+            
+            UIListTemplate template = this.Create<UIListTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\ui\\view\\" + className + "-index.vue", true);
+    		this.Progress.PerformStep();
+        }
+	}
+    this.Progress.Value = 50;
+    
+    // UIEditTemplate
+    Trace.WriteLine("Building UIEditTemplate files (*.ts)...");
+	
+	foreach (TableSchema table in tables)
+	{
+        if(table.Owner.Equals(TableOwner))
+        {
+            string className = StringUtil.ToCamelCase(table.Name);
+    		Trace.WriteLine("Building file " + className + "-index.ts...");
+            
+            UIEditTemplate template = this.Create<UIEditTemplate>();
+            template.Progress.OnProgress += new ProgressEventHandler(this.OnProgress);
+            this.CopyPropertiesTo(template);
+    		template.SetProperty("SourceTable", table);
+    		template.SetProperty("ClassName", className);
+    		template.RenderToFile(this.OutputDirectory + "\\ui\\view\\" + className + "-edit.vue", true);
+    		this.Progress.PerformStep();
+        }
+	}
+    this.Progress.Value = 100;
+    
+    Trace.WriteLine("Generation complete. Execution time: " + (DateTime.Now - startTime).ToString());
+}
+
+public void OnProgress(object sender, ProgressEventArgs e)
+{
+    if (e.Value > 0)
+    {
+        this.Progress.Value = 75 + (_currentStep * 100) + (int)(((Double)e.Value / (Double)e.MaximumValue) * 100);
+    }
+}
+
+public void DeleteFiles(string directory, string searchPattern)
+{
+	string[] files = Directory.GetFiles(directory, searchPattern);
+	
+	for (int i = 0; i < files.Length; i++)
+	{
+		try
+		{
+			File.Delete(files[i]);
+		}
+		catch (Exception ex)
+		{
+			Response.WriteLine("Error while attempting to delete file (" + files[i] + ").\r\n" + ex.Message);
+		}
+	}
+}
+
+</script>

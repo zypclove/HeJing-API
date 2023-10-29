@@ -9,6 +9,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Https\Identity.http" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Https\Identity.http" />
+    </ItemGroup>
+
+    <ItemGroup>
 		<PackageReference Include="AspNet.Security.OAuth.GitHub" Version="6.0.6" />
 		<PackageReference Include="AspNetCore.HealthChecks.MySql" Version="6.0.2" />
 		<PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="6.0.2" />

@@ -1,0 +1,153 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="XML"%>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" %>
+<%@ Property Name="RootNamespace" Type="String" Category="Context" %>
+<%@ Property Name="AreaName" Type="String" Category="Context" %>
+<%@ Property Name="ClassName" Type="String" Category="Context" %>
+<%@ Map Name="CSharpAlias" Src="System-CSharpAlias" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Design" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<script runat="template">
+<!-- #include file="common.cst" -->
+</script>
+<template>
+	<!-- 新增/修改 -->
+	<el-dialog v-model="dialogVisible" :title="currentUpdateId === undefined ? '新增' : '修改'" @close="resetForm" width="50%">
+		<el-form ref="formRef" :model="formData" :rules="formRules" label-width="100px" label-position="right">
+    <% foreach (ColumnSchema column in SourceTable.Columns) {
+       if(Array.IndexOf(GetDtoBaseFields(),column.Name)==-1 && !column.IsPrimaryKeyMember) {
+    %>
+			<el-form-item prop="<%= StringUtil.ToCamelCase(column.Name) %>" label="<%= column.Description %>">
+				<el-input v-model="formData.<%= StringUtil.ToCamelCase(column.Name) %>" placeholder="请输入" />
+			</el-form-item>
+    <% }} %>
+			<el-form-item>
+				<el-button type="primary" @click="handleCreate">保存</el-button>
+				<el-button v-show="currentUpdateId !== undefined" @click="handleSaveAs">另存为</el-button>
+				<el-button @click="dialogVisible = false">取消</el-button>
+			</el-form-item>
+		</el-form>
+	</el-dialog>
+</template>
+
+<script lang="ts" setup>
+import { reactive, ref, defineExpose, onMounted } from "vue"
+import { type FormInstance, type FormRules, ElMessage } from "element-plus"
+import { getApi, createApi, updateApi } from "@/api/management/<%= StringUtil.ToCamelCase(AreaName) %>/<%= StringUtil.ToCamelCase(ClassName) %>"
+
+//#region 初始化
+const emit = defineEmits(["success"])
+
+onMounted(() => {})
+//#endregion
+
+//#region 主体
+//设置表单
+const currentUpdateId = ref<undefined | string>(undefined)
+const handleUpdate = (id: undefined | string) => {
+	if (id === undefined) {
+		resetForm()
+	} else {
+		currentUpdateId.value = id
+		getApi({
+			id: id
+		})
+			.then((res: any) => {
+    <% foreach (ColumnSchema column in SourceTable.Columns) {
+       if(Array.IndexOf(GetDtoBaseFields(),column.Name)==-1 && !column.IsPrimaryKeyMember) {
+    %>
+				formData.<%= StringUtil.ToCamelCase(column.Name) %> = res.data.<%= StringUtil.ToCamelCase(column.Name) %>
+    <% }} %>
+			})
+			.catch(() => {
+				resetForm()
+			})
+			.finally(() => {})
+	}
+	dialogVisible.value = true
+}
+//重置表单
+const resetForm = () => {
+	currentUpdateId.value = undefined
+    <% foreach (ColumnSchema column in SourceTable.Columns) {
+       if(Array.IndexOf(GetDtoBaseFields(),column.Name)==-1 && !column.IsPrimaryKeyMember) {
+    %>
+	formData.<%= StringUtil.ToCamelCase(column.Name) %> = ""
+    <% }} %>
+}
+//保存
+const dialogVisible = ref<boolean>(false)
+const formRef = ref<FormInstance | null>(null)
+const formData = reactive({
+    <% foreach (ColumnSchema column in SourceTable.Columns) {
+       if(Array.IndexOf(GetDtoBaseFields(),column.Name)==-1 && !column.IsPrimaryKeyMember) {
+    %>
+	<%= StringUtil.ToCamelCase(column.Name) %>: "",
+    <% }} %>
+})
+const formRules: FormRules = reactive({
+    <% foreach (ColumnSchema column in SourceTable.Columns) {
+       if(Array.IndexOf(GetDtoBaseFields(),column.Name)==-1 && !column.AllowDBNull && !column.IsPrimaryKeyMember) {
+    %>
+	<%= StringUtil.ToCamelCase(column.Name) %>: [{ required: true, trigger: "blur", message: "请输入<%= column.Description %>" }],
+    <% }} %>
+})
+const handleCreate = () => {
+	formRef.value?.validate((valid: boolean) => {
+		if (valid) {
+			if (currentUpdateId.value === undefined) {
+				createApi({
+    <% foreach (ColumnSchema column in SourceTable.Columns) {
+       if(Array.IndexOf(GetDtoBaseFields(),column.Name)==-1 && !column.IsPrimaryKeyMember) {
+    %>
+					<%= StringUtil.ToCamelCase(column.Name) %>: formData.<%= StringUtil.ToCamelCase(column.Name) %>,
+    <% }} %>
+				}).then(() => {
+					dialogVisible.value = false
+					emit("success")
+				})
+			} else {
+				updateApi({
+					id: currentUpdateId.value,
+    <% foreach (ColumnSchema column in SourceTable.Columns) {
+       if(Array.IndexOf(GetDtoBaseFields(),column.Name)==-1 && !column.IsPrimaryKeyMember) {
+    %>
+					<%= StringUtil.ToCamelCase(column.Name) %>: formData.<%= StringUtil.ToCamelCase(column.Name) %>,
+    <% }} %>
+				}).then(() => {
+					ElMessage.success("修改成功")
+					dialogVisible.value = false
+					emit("success")
+				})
+			}
+		} else {
+			return false
+		}
+	})
+}
+//另存为
+const handleSaveAs = () => {
+	formRef.value?.validate((valid: boolean) => {
+		if (valid) {
+			createApi({
+    <% foreach (ColumnSchema column in SourceTable.Columns) {
+       if(Array.IndexOf(GetDtoBaseFields(),column.Name)==-1 && !column.IsPrimaryKeyMember) {
+    %>
+				<%= StringUtil.ToCamelCase(column.Name) %>: formData.<%= StringUtil.ToCamelCase(column.Name) %>,
+    <% }} %>
+			}).then(() => {
+				dialogVisible.value = false
+				emit("success")
+			})
+		} else {
+			return false
+		}
+	})
+}
+//#endregion
+
+defineExpose({
+	handleUpdate
+})
+</script>
+
