@@ -37,5 +37,13 @@ public class ContractQueryOutDto
     /// 最后更新时间
     /// </summary>
     public System.DateTimeOffset LastModifyTime { get; set; }
+    /// <summary>
+    /// 甲方
+    /// </summary>
+    public string PartyA { get; set; } = null!;
+    /// <summary>
+    /// 乙方
+    /// </summary>
+    public string PartyB { get; set; } = null!;
 }
 

@@ -1,4 +1,6 @@
-﻿namespace ERP.Shared.DTO.ReturnGoods;
+﻿using ERP.Shared.Models;
+
+namespace ERP.Shared.DTO.ReturnGoods;
 
 /// <summary>
 /// 退货
@@ -29,4 +31,8 @@ public class ReturnGoodsCreateInDto : DtoBase
     /// 备注
     /// </summary>
     public string? Remark { get; set; }
+    /// <summary>
+    /// 退货清单
+    /// </summary>
+    public IList<ReturnGoodsItemModel> Items { get; set; } = new List<ReturnGoodsItemModel>();
 }

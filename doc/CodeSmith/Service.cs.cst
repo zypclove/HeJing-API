@@ -102,7 +102,6 @@ public class <%=ClassName%>Service : ServiceBase
     public async Task<PagingOut<<%=ClassName%>QueryOutDto>> Query(<%=ClassName%>QueryInDto input)
     {
         var query = from a in _dbContext.<%=StringUtil.ToPlural(SourceTable.Name)%>.AsNoTracking()
-                    orderby a.<%= GetPrimaryKeyName() %>
                     select a;
 
         #region filter
@@ -111,6 +110,7 @@ public class <%=ClassName%>Service : ServiceBase
         var total = await query.CountAsync();
 
         var items = await query
+            .OrderByDescending(x=>x.LastModifyTime)
             .Skip((input.PageIndex - 1) * input.PageSize)
             .Take(input.PageSize)
             .ToListAsync();
@@ -128,7 +128,6 @@ public class <%=ClassName%>Service : ServiceBase
     public async Task<<%=ClassName%>GetOutDto> Get(<%=ClassName%>GetInDto input)
     {
         var query = from a in _dbContext.<%=StringUtil.ToPlural(SourceTable.Name)%>.AsNoTracking()
-                    orderby a.<%= GetPrimaryKeyName() %>
                     where a.<%= GetPrimaryKeyName() %> == input.<%= GetPrimaryKeyName() %>
                     select a;
 

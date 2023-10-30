@@ -1,4 +1,5 @@
 ﻿using ERP.Shared.DTO.PurchaseRequest;
+using Microsoft.EntityFrameworkCore;
 
 namespace ERP.HostApp.Services;
 
@@ -25,9 +26,11 @@ public class PurchaseRequestService : ServiceBase
     public async Task<Guid> Create(PurchaseRequestCreateInDto input)
     {
         var model = Mapper.Map<PurchaseRequest>(input);
-        
+
         model.Id = NewId.NextSequentialGuid();
-        
+
+        await CreateItems(input, model);
+
         await _dbContext.PurchaseRequests.AddAsync(model);
 
         await _dbContext.SaveChangesAsync();
@@ -42,15 +45,84 @@ public class PurchaseRequestService : ServiceBase
     /// <returns></returns>
     public async Task<bool> Update(PurchaseRequestUpdateInDto input)
     {
-        var model = await _dbContext.PurchaseRequests.SingleAsync(x => x.Id.Equals(input.Id));
+        var model = await _dbContext.PurchaseRequests.Include(x => x.Items).SingleAsync(x => x.Id.Equals(input.Id));
 
         Mapper.Map(input, model);
+
+        await UpdateItems(input, model);
 
         model.LastModifyTime = DateTimeOffset.Now;
 
         await _dbContext.SaveChangesAsync();
 
         return true;
+    }
+
+    private async Task CreateItems(PurchaseRequestCreateInDto input, PurchaseRequest model)
+    {
+        model.Items.Clear();
+
+        foreach (var item in input.Items)
+        {
+            var goods = await _dbContext.Goods.FirstOrDefaultAsync(x => x.Name.Equals(item.Name) && x.BrandModel.Equals(item.BrandModel));
+            if (goods == null)
+            {
+                goods = new Goods
+                {
+                    Id = NewId.NextSequentialGuid(),
+                    Name = item.Name,
+                    BrandModel = item.BrandModel
+                };
+
+                await _dbContext.Goods.AddAsync(goods);
+            }
+            var purchaseRequestItem = new PurchaseRequestItem
+            {
+                Id = NewId.NextSequentialGuid(),
+                GoodsId = goods.Id,
+                Goods = goods,
+                PurchaseRequestId = model.Id,
+                PurchaseRequest = model,
+                Quantity = item.Quantity,
+                UnitPrice = item.UnitPrice
+            };
+
+            model.Items.Add(purchaseRequestItem);
+        }
+    }
+
+    private async Task UpdateItems(PurchaseRequestUpdateInDto input, PurchaseRequest model)
+    {
+        model.Items.Clear();
+
+        foreach (var item in input.Items)
+        {
+            var goods = await _dbContext.Goods.FirstOrDefaultAsync(x => x.Name.Equals(item.Name) && x.BrandModel.Equals(item.BrandModel));
+            if (goods == null)
+            {
+                goods = new Goods
+                {
+                    Id = NewId.NextSequentialGuid(),
+                    Name = item.Name,
+                    BrandModel = item.BrandModel
+                };
+
+                await _dbContext.Goods.AddAsync(goods);
+            }
+
+            var purchaseRequestItem = new PurchaseRequestItem
+            {
+                Id = NewId.NextSequentialGuid(),
+                Goods = goods,
+                GoodsId = goods.Id,
+                PurchaseRequestId = model.Id,
+                PurchaseRequest = model,
+                Quantity = item.Quantity,
+                UnitPrice = item.UnitPrice
+            };
+
+            model.Items.Add(purchaseRequestItem);
+        }
     }
 
     /// <summary>
@@ -93,7 +165,6 @@ public class PurchaseRequestService : ServiceBase
     public async Task<PagingOut<PurchaseRequestQueryOutDto>> Query(PurchaseRequestQueryInDto input)
     {
         var query = from a in _dbContext.PurchaseRequests.AsNoTracking()
-                    orderby a.Id
                     select a;
 
         #region filter
@@ -102,6 +173,7 @@ public class PurchaseRequestService : ServiceBase
         var total = await query.CountAsync();
 
         var items = await query
+            .OrderByDescending(x=>x.LastModifyTime)
             .Skip((input.PageIndex - 1) * input.PageSize)
             .Take(input.PageSize)
             .ToListAsync();
@@ -118,8 +190,7 @@ public class PurchaseRequestService : ServiceBase
     /// <returns></returns>
     public async Task<PurchaseRequestGetOutDto> Get(PurchaseRequestGetInDto input)
     {
-        var query = from a in _dbContext.PurchaseRequests.AsNoTracking()
-                    orderby a.Id
+        var query = from a in _dbContext.PurchaseRequests.Include(x=>x.Items).ThenInclude(x=>x.Goods).AsNoTracking()
                     where a.Id == input.Id
                     select a;
 

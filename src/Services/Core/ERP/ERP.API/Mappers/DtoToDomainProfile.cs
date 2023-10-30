@@ -10,6 +10,7 @@ using ERP.Shared.DTO.ReturnGoods;
 using ERP.Shared.DTO.ReturnGoodsItem;
 using ERP.Shared.DTO.Stock;
 using ERP.Shared.DTO.StockItem;
+using ERP.Shared.Models;
 
 namespace ERP.API.Mappers;
 
@@ -38,8 +39,10 @@ public class DtoToDomainProfile : Profile
         #endregion
 
         #region Contract
-        CreateMap<ContractCreateInDto, Contract>();
-        CreateMap<ContractUpdateInDto, Contract>();
+        CreateMap<ContractCreateInDto, Contract>()
+            .ForMember(x => x.Items, opt => opt.Ignore());
+        CreateMap<ContractUpdateInDto, Contract>()
+            .ForMember(x => x.Items, opt => opt.Ignore());
         CreateMap<Contract, ContractQueryOutDto>();
         CreateMap<Contract, ContractGetOutDto>();
         #endregion
@@ -49,6 +52,9 @@ public class DtoToDomainProfile : Profile
         CreateMap<ContractItemUpdateInDto, ContractItem>();
         CreateMap<ContractItem, ContractItemQueryOutDto>();
         CreateMap<ContractItem, ContractItemGetOutDto>();
+        CreateMap<ContractItem, ContractItemModel>()
+            .ForMember(d => d.Name, opt => opt.MapFrom(src => src.Goods.Name))
+            .ForMember(d => d.BrandModel, opt => opt.MapFrom(src => src.Goods.BrandModel));
         #endregion
 
         #region Goods
@@ -66,22 +72,29 @@ public class DtoToDomainProfile : Profile
         #endregion
 
         #region PurchaseRequest
-        CreateMap<PurchaseRequestCreateInDto, PurchaseRequest>();
-        CreateMap<PurchaseRequestUpdateInDto, PurchaseRequest>();
+        CreateMap<PurchaseRequestCreateInDto, PurchaseRequest>()
+            .ForMember(x => x.Items, opt => opt.Ignore());
+        CreateMap<PurchaseRequestUpdateInDto, PurchaseRequest>()
+            .ForMember(x => x.Items, opt => opt.Ignore());
         CreateMap<PurchaseRequest, PurchaseRequestQueryOutDto>();
         CreateMap<PurchaseRequest, PurchaseRequestGetOutDto>();
         #endregion
 
         #region PurchaseRequestItem
-        CreateMap<PurchaseRequestItemModel, PurchaseRequestItem>();
+        CreateMap<PurchaseRequestItemCreateInDto, PurchaseRequestItem>();
         CreateMap<PurchaseRequestItemUpdateInDto, PurchaseRequestItem>();
         CreateMap<PurchaseRequestItem, PurchaseRequestItemQueryOutDto>();
         CreateMap<PurchaseRequestItem, PurchaseRequestItemGetOutDto>();
+        CreateMap<PurchaseRequestItem, PurchaseRequestItemModel>()
+            .ForMember(d => d.Name, opt => opt.MapFrom(src => src.Goods.Name))
+            .ForMember(d => d.BrandModel, opt => opt.MapFrom(src => src.Goods.BrandModel));
         #endregion
 
         #region ReturnGoods
-        CreateMap<ReturnGoodsCreateInDto, ReturnGoods>();
-        CreateMap<ReturnGoodsUpdateInDto, ReturnGoods>();
+        CreateMap<ReturnGoodsCreateInDto, ReturnGoods>()
+            .ForMember(x => x.Items, opt => opt.Ignore());
+        CreateMap<ReturnGoodsUpdateInDto, ReturnGoods>()
+            .ForMember(x => x.Items, opt => opt.Ignore());
         CreateMap<ReturnGoods, ReturnGoodsQueryOutDto>();
         CreateMap<ReturnGoods, ReturnGoodsGetOutDto>();
         #endregion
@@ -91,11 +104,16 @@ public class DtoToDomainProfile : Profile
         CreateMap<ReturnGoodsItemUpdateInDto, ReturnGoodsItem>();
         CreateMap<ReturnGoodsItem, ReturnGoodsItemQueryOutDto>();
         CreateMap<ReturnGoodsItem, ReturnGoodsItemGetOutDto>();
+        CreateMap<ReturnGoodsItem, ReturnGoodsItemModel>()
+            .ForMember(d => d.Name, opt => opt.MapFrom(src => src.Goods.Name))
+            .ForMember(d => d.BrandModel, opt => opt.MapFrom(src => src.Goods.BrandModel));
         #endregion
 
         #region Stock
-        CreateMap<StockCreateInDto, Stock>();
-        CreateMap<StockUpdateInDto, Stock>();
+        CreateMap<StockCreateInDto, Stock>()
+            .ForMember(x => x.Items, opt => opt.Ignore());
+        CreateMap<StockUpdateInDto, Stock>()
+            .ForMember(x => x.Items, opt => opt.Ignore());
         CreateMap<Stock, StockQueryOutDto>();
         CreateMap<Stock, StockGetOutDto>();
         #endregion
@@ -105,6 +123,9 @@ public class DtoToDomainProfile : Profile
         CreateMap<StockItemUpdateInDto, StockItem>();
         CreateMap<StockItem, StockItemQueryOutDto>();
         CreateMap<StockItem, StockItemGetOutDto>();
+        CreateMap<StockItem, StockItemModel>()
+            .ForMember(d => d.Name, opt => opt.MapFrom(src => src.Goods.Name))
+            .ForMember(d => d.BrandModel, opt => opt.MapFrom(src => src.Goods.BrandModel));
         #endregion
     }
 }

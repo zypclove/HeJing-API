@@ -44,5 +44,5 @@ public partial class ReturnGoods : Entity
     /// <summary>
     /// 退货清单
     /// </summary>
-    public List<ReturnGoodsItem> ReturnGoodsItems = new List<ReturnGoodsItem>();
+    public ICollection<ReturnGoodsItem> Items { get; set; } = new List<ReturnGoodsItem>();
 }

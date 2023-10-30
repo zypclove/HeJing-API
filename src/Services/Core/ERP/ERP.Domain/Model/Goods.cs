@@ -29,7 +29,7 @@ public partial class Goods : Entity
     /// </summary>
     [StringLength(200)]
     [Comment("品牌型号")]
-    public string? BrandModel { get; set; }
+    public string BrandModel { get; set; } = null!;
     /// <summary>
     /// 备注
     /// </summary>

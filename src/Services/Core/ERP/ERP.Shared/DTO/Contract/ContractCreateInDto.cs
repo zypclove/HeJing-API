@@ -1,4 +1,7 @@
-﻿namespace ERP.Shared.DTO.Contract;
+﻿using ERP.Shared.Enums;
+using ERP.Shared.Models;
+
+namespace ERP.Shared.DTO.Contract;
 
 /// <summary>
 /// 合同
@@ -12,7 +15,7 @@ public class ContractCreateInDto : DtoBase
     /// <summary>
     /// 合同类型
     /// </summary>
-    public int ContractType { get; set; }
+    public ContractType ContractType { get; set; }
     /// <summary>
     /// 合同编号
     /// </summary>
@@ -29,4 +32,16 @@ public class ContractCreateInDto : DtoBase
     /// 备注
     /// </summary>
     public string? Remark { get; set; }
+    /// <summary>
+    /// 甲方
+    /// </summary>
+    public string PartyA { get; set; } = null!;
+    /// <summary>
+    /// 乙方
+    /// </summary>
+    public string PartyB { get; set; } = null!;
+    /// <summary>
+    /// 合同清单
+    /// </summary>
+    public IList<ContractItemModel> Items { get; set; } = new List<ContractItemModel>();
 }

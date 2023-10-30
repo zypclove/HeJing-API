@@ -1,9 +1,9 @@
 ﻿namespace ERP.Shared.Models;
 
 /// <summary>
-/// 采购需求清单
+/// 库存清单
 /// </summary>
-public class PurchaseRequestItemModel
+public class StockItemModel
 {
     /// <summary>
     /// 物品名称

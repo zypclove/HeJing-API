@@ -1,4 +1,6 @@
-﻿namespace ERP.Shared.DTO.Stock;
+﻿using ERP.Shared.Models;
+
+namespace ERP.Shared.DTO.Stock;
 
 /// <summary>
 /// 库存
@@ -29,4 +31,8 @@ public class StockCreateInDto : DtoBase
     /// 备注
     /// </summary>
     public string? Remark { get; set; }
+    /// <summary>
+    /// 库存清单
+    /// </summary>
+    public IList<StockItemModel> Items { get; set; } = new List<StockItemModel>();
 }

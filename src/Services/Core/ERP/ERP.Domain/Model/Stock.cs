@@ -44,5 +44,5 @@ public partial class Stock : Entity
     /// <summary>
     /// 库存清单
     /// </summary>
-    public List<StockItem> StockItems = new List<StockItem>();
+    public ICollection<StockItem> Items { get; set; } = new List<StockItem>();
 }

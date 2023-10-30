@@ -38,5 +38,5 @@ public partial class PurchaseRequest : Entity
     /// <summary>
     /// 采购需求清单
     /// </summary>
-    public List<PurchaseRequestItem> PurchaseRequestItems = new List<PurchaseRequestItem>();
+    public ICollection<PurchaseRequestItem> Items { get; set; } = new List<PurchaseRequestItem>();
 }

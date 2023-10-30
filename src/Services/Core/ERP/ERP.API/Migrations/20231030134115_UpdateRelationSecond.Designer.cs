@@ -4,6 +4,7 @@ using ERP.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERP.API.Migrations
 {
     [DbContext(typeof(ERPDbContext))]
-    partial class ERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231030134115_UpdateRelationSecond")]
+    partial class UpdateRelationSecond
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,18 +158,6 @@ namespace ERP.API.Migrations
                         .HasColumnType("datetimeoffset")
                         .HasComment("最后更新时间");
 
-                    b.Property<string>("PartyA")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)")
-                        .HasComment("甲方");
-
-                    b.Property<string>("PartyB")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)")
-                        .HasComment("乙方");
-
                     b.Property<string>("Remark")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)")
@@ -237,7 +227,6 @@ namespace ERP.API.Migrations
                         .HasComment("标识");
 
                     b.Property<string>("BrandModel")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)")
                         .HasComment("品牌型号");
@@ -677,7 +666,7 @@ namespace ERP.API.Migrations
                         .IsRequired();
 
                     b.HasOne("ERP.Domain.Model.Stock", "Stock")
-                        .WithMany("Items")
+                        .WithMany("StockItems")
                         .HasForeignKey("StockId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -704,7 +693,7 @@ namespace ERP.API.Migrations
 
             modelBuilder.Entity("ERP.Domain.Model.Stock", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("StockItems");
                 });
 #pragma warning restore 612, 618
         }

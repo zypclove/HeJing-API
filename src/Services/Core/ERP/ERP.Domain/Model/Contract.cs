@@ -36,6 +36,18 @@ public partial class Contract : Entity
     [Comment("合同标题")]
     public string ContractTitle { get; set; } = null!;
     /// <summary>
+    /// 甲方
+    /// </summary>
+    [StringLength(200)]
+    [Comment("甲方")]
+    public string PartyA { get; set; } = null!;
+    /// <summary>
+    /// 乙方
+    /// </summary>
+    [StringLength(200)]
+    [Comment("乙方")]
+    public string PartyB { get; set; } = null!;
+    /// <summary>
     /// 备注
     /// </summary>
     [StringLength(2000)]
@@ -44,5 +56,5 @@ public partial class Contract : Entity
     /// <summary>
     /// 合同清单
     /// </summary>
-    public List<ContractItem> ContractItems = new List<ContractItem>();
+    public ICollection<ContractItem> Items { get; set; } = new List<ContractItem>();
 }

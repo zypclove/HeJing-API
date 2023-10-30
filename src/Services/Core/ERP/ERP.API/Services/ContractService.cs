@@ -1,4 +1,5 @@
 ﻿using ERP.Shared.DTO.Contract;
+using ERP.Shared.DTO.PurchaseRequest;
 
 namespace ERP.HostApp.Services;
 
@@ -25,9 +26,11 @@ public class ContractService : ServiceBase
     public async Task<Guid> Create(ContractCreateInDto input)
     {
         var model = Mapper.Map<Contract>(input);
-        
+
         model.Id = NewId.NextSequentialGuid();
-        
+
+        await CreateItems(input, model);
+
         await _dbContext.Contracts.AddAsync(model);
 
         await _dbContext.SaveChangesAsync();
@@ -42,15 +45,84 @@ public class ContractService : ServiceBase
     /// <returns></returns>
     public async Task<bool> Update(ContractUpdateInDto input)
     {
-        var model = await _dbContext.Contracts.SingleAsync(x => x.Id.Equals(input.Id));
+        var model = await _dbContext.Contracts.Include(x => x.Items).SingleAsync(x => x.Id.Equals(input.Id));
 
         Mapper.Map(input, model);
+
+        await UpdateItems(input, model);
 
         model.LastModifyTime = DateTimeOffset.Now;
 
         await _dbContext.SaveChangesAsync();
 
         return true;
+    }
+
+    private async Task CreateItems(ContractCreateInDto input, Contract model)
+    {
+        model.Items.Clear();
+
+        foreach (var item in input.Items)
+        {
+            var goods = await _dbContext.Goods.FirstOrDefaultAsync(x => x.Name.Equals(item.Name) && x.BrandModel.Equals(item.BrandModel));
+            if (goods == null)
+            {
+                goods = new Goods
+                {
+                    Id = NewId.NextSequentialGuid(),
+                    Name = item.Name,
+                    BrandModel = item.BrandModel
+                };
+
+                await _dbContext.Goods.AddAsync(goods);
+            }
+            var contractItem = new ContractItem
+            {
+                Id = NewId.NextSequentialGuid(),
+                GoodsId = goods.Id,
+                Goods = goods,
+                ContractId = model.Id,
+                Contract = model,
+                Quantity = item.Quantity,
+                UnitPrice = item.UnitPrice
+            };
+
+            model.Items.Add(contractItem);
+        }
+    }
+
+    private async Task UpdateItems(ContractUpdateInDto input, Contract model)
+    {
+        model.Items.Clear();
+
+        foreach (var item in input.Items)
+        {
+            var goods = await _dbContext.Goods.FirstOrDefaultAsync(x => x.Name.Equals(item.Name) && x.BrandModel.Equals(item.BrandModel));
+            if (goods == null)
+            {
+                goods = new Goods
+                {
+                    Id = NewId.NextSequentialGuid(),
+                    Name = item.Name,
+                    BrandModel = item.BrandModel
+                };
+
+                await _dbContext.Goods.AddAsync(goods);
+            }
+
+            var contractItem = new ContractItem
+            {
+                Id = NewId.NextSequentialGuid(),
+                Goods = goods,
+                GoodsId = goods.Id,
+                ContractId = model.Id,
+                Contract = model,
+                Quantity = item.Quantity,
+                UnitPrice = item.UnitPrice
+            };
+
+            model.Items.Add(contractItem);
+        }
     }
 
     /// <summary>
@@ -93,7 +165,6 @@ public class ContractService : ServiceBase
     public async Task<PagingOut<ContractQueryOutDto>> Query(ContractQueryInDto input)
     {
         var query = from a in _dbContext.Contracts.AsNoTracking()
-                    orderby a.Id
                     select a;
 
         #region filter
@@ -102,6 +173,7 @@ public class ContractService : ServiceBase
         var total = await query.CountAsync();
 
         var items = await query
+            .OrderByDescending(x => x.LastModifyTime)
             .Skip((input.PageIndex - 1) * input.PageSize)
             .Take(input.PageSize)
             .ToListAsync();
@@ -118,8 +190,7 @@ public class ContractService : ServiceBase
     /// <returns></returns>
     public async Task<ContractGetOutDto> Get(ContractGetInDto input)
     {
-        var query = from a in _dbContext.Contracts.AsNoTracking()
-                    orderby a.Id
+        var query = from a in _dbContext.Contracts.Include(x => x.Items).ThenInclude(x => x.Goods).AsNoTracking()
                     where a.Id == input.Id
                     select a;
 
