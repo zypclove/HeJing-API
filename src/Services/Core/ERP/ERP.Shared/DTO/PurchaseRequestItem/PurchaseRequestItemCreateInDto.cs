@@ -5,6 +5,10 @@
 /// </summary>
 public class PurchaseRequestItemCreateInDto : DtoBase
 {
+    public PurchaseRequestItemCreateInDto()
+    {
+    }
+
     /// <summary>
     /// 标识
     /// </summary>

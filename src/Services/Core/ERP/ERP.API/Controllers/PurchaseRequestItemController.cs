@@ -28,7 +28,7 @@ public class PurchaseRequestItemController : AppControllerBase
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<ApiResult<Guid>> Create(PurchaseRequestItemCreateInDto input)
+    public async Task<ApiResult<Guid>> Create(PurchaseRequestItemModel input)
     {
         var result = await _service.Create(input);
         return Success(result);

@@ -1,4 +1,6 @@
-﻿namespace ERP.Shared.DTO.PurchaseRequest;
+﻿using ERP.Shared.DTO.PurchaseRequestItem;
+
+namespace ERP.Shared.DTO.PurchaseRequest;
 
 /// <summary>
 /// 采购需求
@@ -25,4 +27,9 @@ public class PurchaseRequestCreateInDto : DtoBase
     /// 备注
     /// </summary>
     public string? Remark { get; set; }
+
+    /// <summary>
+    /// 需求清单
+    /// </summary>
+    public IList<PurchaseRequestItemModel> Items { get; set; } = new List<PurchaseRequestItemModel>();
 }

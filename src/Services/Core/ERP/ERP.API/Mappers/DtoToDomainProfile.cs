@@ -73,7 +73,7 @@ public class DtoToDomainProfile : Profile
         #endregion
 
         #region PurchaseRequestItem
-        CreateMap<PurchaseRequestItemCreateInDto, PurchaseRequestItem>();
+        CreateMap<PurchaseRequestItemModel, PurchaseRequestItem>();
         CreateMap<PurchaseRequestItemUpdateInDto, PurchaseRequestItem>();
         CreateMap<PurchaseRequestItem, PurchaseRequestItemQueryOutDto>();
         CreateMap<PurchaseRequestItem, PurchaseRequestItemGetOutDto>();

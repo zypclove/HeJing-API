@@ -22,7 +22,7 @@ public class PurchaseRequestItemService : ServiceBase
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<Guid> Create(PurchaseRequestItemCreateInDto input)
+    public async Task<Guid> Create(PurchaseRequestItemModel input)
     {
         var model = Mapper.Map<PurchaseRequestItem>(input);
         
