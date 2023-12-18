@@ -5,61 +5,45 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{455E395F-0047-4697-87BC-BD110AB80548}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{7F43E379-838F-4663-B0E9-D057817FDB82}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{6EEFC9C4-F8B4-49FA-AFC2-CC7B5CD29D16}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{BCC91017-7B11-4EA4-9BCB-2D5A2E6366AB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{D754E4C6-2674-4930-A483-52B5BC8687F2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blog", "Blog", "{788849F7-08D2-428F-91F2-F5D5D8B6DD07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin", "src\Services\IdentityServer\IdentityServer.Admin\IdentityServer.Admin.csproj", "{9312DA1C-850B-4604-9E21-FE10A19D1127}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{E8ED675F-A899-4ECF-86F3-4CB36EF02D62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.Api", "src\Services\IdentityServer\IdentityServer.Admin.Api\IdentityServer.Admin.Api.csproj", "{865B4982-D968-4841-8CEE-86D8973D153B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Shared", "src\Services\Core\Blog\Blog.Shared\Blog.Shared.csproj", "{44A2BC75-100D-45EF-8F5E-E36C5705FC51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.BusinessLogic", "src\Services\IdentityServer\IdentityServer.Admin.BusinessLogic\IdentityServer.Admin.BusinessLogic.csproj", "{84DE0BD2-6D7C-4AE6-A645-E87C68D7FBB3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Infrastructure", "src\Services\Core\Blog\Blog.Infrastructure\Blog.Infrastructure.csproj", "{44268F1B-3666-4B75-8A8C-91EB8CC60DAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.BusinessLogic.Identity", "src\Services\IdentityServer\IdentityServer.Admin.BusinessLogic.Identity\IdentityServer.Admin.BusinessLogic.Identity.csproj", "{19ECBD55-F629-4C8E-8F6E-2B1E2C3F6092}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.Domain", "src\Services\Core\Blog\Blog.Domain\Blog.Domain.csproj", "{D1AF219B-4221-44C6-B010-BA56E25EE739}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.BusinessLogic.Shared", "src\Services\IdentityServer\IdentityServer.Admin.BusinessLogic.Shared\IdentityServer.Admin.BusinessLogic.Shared.csproj", "{A2195DC9-2D08-42AB-9CE2-DCADDC4769B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blog.API", "src\Services\Core\Blog\Blog.API\Blog.API.csproj", "{E2A243B8-F5F0-4A11-ADC5-56FB539440EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework", "src\Services\IdentityServer\IdentityServer.Admin.EntityFramework\IdentityServer.Admin.EntityFramework.csproj", "{BC313837-6EEE-4100-B4F9-A0CC66C543AF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ERP", "ERP", "{0D0FAA60-86DD-4806-AD9C-7DD5552BFE21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.Configuration", "src\Services\IdentityServer\IdentityServer.Admin.EntityFramework.Configuration\IdentityServer.Admin.EntityFramework.Configuration.csproj", "{54981F09-E293-425D-BFE3-972AD8295A2C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin", "src\Services\Common\Identity\IdentityServer.Admin\IdentityServer.Admin.csproj", "{9312DA1C-850B-4604-9E21-FE10A19D1127}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.Extensions", "src\Services\IdentityServer\IdentityServer.Admin.EntityFramework.Extensions\IdentityServer.Admin.EntityFramework.Extensions.csproj", "{1A436000-6CB6-4902-B02E-CD653A961BD7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.Api", "src\Services\Common\Identity\IdentityServer.Admin.Api\IdentityServer.Admin.Api.csproj", "{865B4982-D968-4841-8CEE-86D8973D153B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.Identity", "src\Services\IdentityServer\IdentityServer.Admin.EntityFramework.Identity\IdentityServer.Admin.EntityFramework.Identity.csproj", "{9C45ECBE-A0F8-4FE6-831D-B07E35064AC1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.BusinessLogic", "src\Services\Common\Identity\IdentityServer.Admin.BusinessLogic\IdentityServer.Admin.BusinessLogic.csproj", "{84DE0BD2-6D7C-4AE6-A645-E87C68D7FBB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.MySql", "src\Services\IdentityServer\IdentityServer.Admin.EntityFramework.MySql\IdentityServer.Admin.EntityFramework.MySql.csproj", "{DC683EA0-7423-44A6-95D7-2A605D41E141}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.BusinessLogic.Identity", "src\Services\Common\Identity\IdentityServer.Admin.BusinessLogic.Identity\IdentityServer.Admin.BusinessLogic.Identity.csproj", "{19ECBD55-F629-4C8E-8F6E-2B1E2C3F6092}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.PostgreSQL", "src\Services\IdentityServer\IdentityServer.Admin.EntityFramework.PostgreSQL\IdentityServer.Admin.EntityFramework.PostgreSQL.csproj", "{E99FEEA9-FD63-4CDE-86CD-71A52F5322D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.BusinessLogic.Shared", "src\Services\Common\Identity\IdentityServer.Admin.BusinessLogic.Shared\IdentityServer.Admin.BusinessLogic.Shared.csproj", "{A2195DC9-2D08-42AB-9CE2-DCADDC4769B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.Shared", "src\Services\IdentityServer\IdentityServer.Admin.EntityFramework.Shared\IdentityServer.Admin.EntityFramework.Shared.csproj", "{A65F77B0-D94B-4689-AC74-F6E010703E2B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework", "src\Services\Common\Identity\IdentityServer.Admin.EntityFramework\IdentityServer.Admin.EntityFramework.csproj", "{BC313837-6EEE-4100-B4F9-A0CC66C543AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.SqlServer", "src\Services\IdentityServer\IdentityServer.Admin.EntityFramework.SqlServer\IdentityServer.Admin.EntityFramework.SqlServer.csproj", "{ECD04DBD-4AB9-4AD3-B277-50DEC2CCAA04}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.Configuration", "src\Services\Common\Identity\IdentityServer.Admin.EntityFramework.Configuration\IdentityServer.Admin.EntityFramework.Configuration.csproj", "{54981F09-E293-425D-BFE3-972AD8295A2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.UI", "src\Services\IdentityServer\IdentityServer.Admin.UI\IdentityServer.Admin.UI.csproj", "{45B70F43-536B-40ED-93D8-99450AB81253}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.Extensions", "src\Services\Common\Identity\IdentityServer.Admin.EntityFramework.Extensions\IdentityServer.Admin.EntityFramework.Extensions.csproj", "{1A436000-6CB6-4902-B02E-CD653A961BD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Shared", "src\Services\IdentityServer\IdentityServer.Shared\IdentityServer.Shared.csproj", "{670108D1-8CBC-4A5E-89CE-043FC1EF20B2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.Identity", "src\Services\Common\Identity\IdentityServer.Admin.EntityFramework.Identity\IdentityServer.Admin.EntityFramework.Identity.csproj", "{9C45ECBE-A0F8-4FE6-831D-B07E35064AC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Shared.Configuration", "src\Services\IdentityServer\IdentityServer.Shared.Configuration\IdentityServer.Shared.Configuration.csproj", "{BDE85563-58D2-4452-8587-FBEAB567F345}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.MySql", "src\Services\Common\Identity\IdentityServer.Admin.EntityFramework.MySql\IdentityServer.Admin.EntityFramework.MySql.csproj", "{DC683EA0-7423-44A6-95D7-2A605D41E141}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.PostgreSQL", "src\Services\Common\Identity\IdentityServer.Admin.EntityFramework.PostgreSQL\IdentityServer.Admin.EntityFramework.PostgreSQL.csproj", "{E99FEEA9-FD63-4CDE-86CD-71A52F5322D4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.Shared", "src\Services\Common\Identity\IdentityServer.Admin.EntityFramework.Shared\IdentityServer.Admin.EntityFramework.Shared.csproj", "{A65F77B0-D94B-4689-AC74-F6E010703E2B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.EntityFramework.SqlServer", "src\Services\Common\Identity\IdentityServer.Admin.EntityFramework.SqlServer\IdentityServer.Admin.EntityFramework.SqlServer.csproj", "{ECD04DBD-4AB9-4AD3-B277-50DEC2CCAA04}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Admin.UI", "src\Services\Common\Identity\IdentityServer.Admin.UI\IdentityServer.Admin.UI.csproj", "{45B70F43-536B-40ED-93D8-99450AB81253}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Shared", "src\Services\Common\Identity\IdentityServer.Shared\IdentityServer.Shared.csproj", "{670108D1-8CBC-4A5E-89CE-043FC1EF20B2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.Shared.Configuration", "src\Services\Common\Identity\IdentityServer.Shared.Configuration\IdentityServer.Shared.Configuration.csproj", "{BDE85563-58D2-4452-8587-FBEAB567F345}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.STS.Identity", "src\Services\Common\Identity\IdentityServer.STS.Identity\IdentityServer.STS.Identity.csproj", "{A3120DEA-EB88-40C2-B4D9-D2CD35B28C03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer.STS.Identity", "src\Services\IdentityServer\IdentityServer.STS.Identity\IdentityServer.STS.Identity.csproj", "{A3120DEA-EB88-40C2-B4D9-D2CD35B28C03}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonMormon.Infrastructure.Shared", "src\Infrastructure\CommonMormon.Infrastructure.Shared\CommonMormon.Infrastructure.Shared.csproj", "{72D005AE-21F9-47C1-9AFD-BA8E29453ADF}"
 EndProject
@@ -67,36 +51,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonMormon.Infrastructure
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonMormon.Infrastructure", "src\Infrastructure\CommonMormon.Infrastructure\CommonMormon.Infrastructure.csproj", "{E9BA9AC4-69C6-40E6-8E8B-5EB945B9FE54}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.API", "src\Services\Core\ERP\ERP.API\ERP.API.csproj", "{C231005A-5DA1-4AC0-B5A1-87B0528E6F8D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Domain", "src\Services\Core\ERP\ERP.Domain\ERP.Domain.csproj", "{C88D897B-B1EB-43C7-84D2-128E30E28871}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Infrastructure", "src\Services\Core\ERP\ERP.Infrastructure\ERP.Infrastructure.csproj", "{9B78D5DD-CDAE-44EB-8A05-5B534850D6E4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Shared", "src\Services\Core\ERP\ERP.Shared\ERP.Shared.csproj", "{84C58A48-F3A5-43D5-AE73-AACD3A58929C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{44A2BC75-100D-45EF-8F5E-E36C5705FC51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44A2BC75-100D-45EF-8F5E-E36C5705FC51}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44A2BC75-100D-45EF-8F5E-E36C5705FC51}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44A2BC75-100D-45EF-8F5E-E36C5705FC51}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44268F1B-3666-4B75-8A8C-91EB8CC60DAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44268F1B-3666-4B75-8A8C-91EB8CC60DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44268F1B-3666-4B75-8A8C-91EB8CC60DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44268F1B-3666-4B75-8A8C-91EB8CC60DAE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1AF219B-4221-44C6-B010-BA56E25EE739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1AF219B-4221-44C6-B010-BA56E25EE739}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1AF219B-4221-44C6-B010-BA56E25EE739}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1AF219B-4221-44C6-B010-BA56E25EE739}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E2A243B8-F5F0-4A11-ADC5-56FB539440EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2A243B8-F5F0-4A11-ADC5-56FB539440EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E2A243B8-F5F0-4A11-ADC5-56FB539440EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E2A243B8-F5F0-4A11-ADC5-56FB539440EF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9312DA1C-850B-4604-9E21-FE10A19D1127}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9312DA1C-850B-4604-9E21-FE10A19D1127}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9312DA1C-850B-4604-9E21-FE10A19D1127}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -177,36 +137,12 @@ Global
 		{E9BA9AC4-69C6-40E6-8E8B-5EB945B9FE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9BA9AC4-69C6-40E6-8E8B-5EB945B9FE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9BA9AC4-69C6-40E6-8E8B-5EB945B9FE54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C231005A-5DA1-4AC0-B5A1-87B0528E6F8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C231005A-5DA1-4AC0-B5A1-87B0528E6F8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C231005A-5DA1-4AC0-B5A1-87B0528E6F8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C231005A-5DA1-4AC0-B5A1-87B0528E6F8D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C88D897B-B1EB-43C7-84D2-128E30E28871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C88D897B-B1EB-43C7-84D2-128E30E28871}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C88D897B-B1EB-43C7-84D2-128E30E28871}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C88D897B-B1EB-43C7-84D2-128E30E28871}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B78D5DD-CDAE-44EB-8A05-5B534850D6E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B78D5DD-CDAE-44EB-8A05-5B534850D6E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B78D5DD-CDAE-44EB-8A05-5B534850D6E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B78D5DD-CDAE-44EB-8A05-5B534850D6E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84C58A48-F3A5-43D5-AE73-AACD3A58929C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84C58A48-F3A5-43D5-AE73-AACD3A58929C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84C58A48-F3A5-43D5-AE73-AACD3A58929C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84C58A48-F3A5-43D5-AE73-AACD3A58929C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7F43E379-838F-4663-B0E9-D057817FDB82} = {455E395F-0047-4697-87BC-BD110AB80548}
-		{D754E4C6-2674-4930-A483-52B5BC8687F2} = {7F43E379-838F-4663-B0E9-D057817FDB82}
-		{788849F7-08D2-428F-91F2-F5D5D8B6DD07} = {E8ED675F-A899-4ECF-86F3-4CB36EF02D62}
-		{E8ED675F-A899-4ECF-86F3-4CB36EF02D62} = {455E395F-0047-4697-87BC-BD110AB80548}
-		{44A2BC75-100D-45EF-8F5E-E36C5705FC51} = {788849F7-08D2-428F-91F2-F5D5D8B6DD07}
-		{44268F1B-3666-4B75-8A8C-91EB8CC60DAE} = {788849F7-08D2-428F-91F2-F5D5D8B6DD07}
-		{D1AF219B-4221-44C6-B010-BA56E25EE739} = {788849F7-08D2-428F-91F2-F5D5D8B6DD07}
-		{E2A243B8-F5F0-4A11-ADC5-56FB539440EF} = {788849F7-08D2-428F-91F2-F5D5D8B6DD07}
-		{0D0FAA60-86DD-4806-AD9C-7DD5552BFE21} = {E8ED675F-A899-4ECF-86F3-4CB36EF02D62}
+		{D754E4C6-2674-4930-A483-52B5BC8687F2} = {455E395F-0047-4697-87BC-BD110AB80548}
 		{9312DA1C-850B-4604-9E21-FE10A19D1127} = {D754E4C6-2674-4930-A483-52B5BC8687F2}
 		{865B4982-D968-4841-8CEE-86D8973D153B} = {D754E4C6-2674-4930-A483-52B5BC8687F2}
 		{84DE0BD2-6D7C-4AE6-A645-E87C68D7FBB3} = {D754E4C6-2674-4930-A483-52B5BC8687F2}
@@ -227,10 +163,6 @@ Global
 		{72D005AE-21F9-47C1-9AFD-BA8E29453ADF} = {BCC91017-7B11-4EA4-9BCB-2D5A2E6366AB}
 		{6776EBC6-9388-4410-8652-5ACFD5DA38E5} = {BCC91017-7B11-4EA4-9BCB-2D5A2E6366AB}
 		{E9BA9AC4-69C6-40E6-8E8B-5EB945B9FE54} = {BCC91017-7B11-4EA4-9BCB-2D5A2E6366AB}
-		{C231005A-5DA1-4AC0-B5A1-87B0528E6F8D} = {0D0FAA60-86DD-4806-AD9C-7DD5552BFE21}
-		{C88D897B-B1EB-43C7-84D2-128E30E28871} = {0D0FAA60-86DD-4806-AD9C-7DD5552BFE21}
-		{9B78D5DD-CDAE-44EB-8A05-5B534850D6E4} = {0D0FAA60-86DD-4806-AD9C-7DD5552BFE21}
-		{84C58A48-F3A5-43D5-AE73-AACD3A58929C} = {0D0FAA60-86DD-4806-AD9C-7DD5552BFE21}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1843AEDF-A5C3-4FCF-A723-7252989CC444}
