@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<codeSmith xmlns="http://www.codesmithtools.com/schema/csp.xsd">
+  <defaultTemplate path="master.cst" />
+  <variables>
+    <add key="ConnectionString1" value="Data Source=.;Initial Catalog=EngineeringTest;User ID=sa;Password=fuqing68" />
+    <add key="ConnectionString2" value="Data Source=.;Initial Catalog=Parties;User ID=sa;Password=fuqing68" />
+    <add key="ConnectionString3" value="Data Source=.;Initial Catalog=ES;Integrated Security=True" />
+    <add key="ConnectionString4" value="Data Source=.;Initial Catalog=ES_Pillar;Integrated Security=True" />
+    <add key="ConnectionString5" value="Data Source=.;Initial Catalog=FunText;User ID=sa;Password=fuqing68" />
+    <add key="ConnectionString6" value="Data Source=10.168.1.6\v2016;Initial Catalog=AZHZJ2017_Government;User ID=sa;Password=fuqing68+++" />
+    <add key="ConnectionString7" value="Data Source=10.168.1.6\v2016;Initial Catalog=NBJC_Support;User ID=sa;Password=fuqing68+++" />
+    <add key="ConnectionString8" value="Data Source=10.168.1.6\v2016;Initial Catalog=NBJC_Uums;User ID=sa;Password=fuqing68+++" />
+    <add key="ConnectionString9" value="Data Source=10.168.1.6\v2016;Initial Catalog=NBJC;User ID=sa;Password=fuqing68+++" />
+    <add key="ConnectionString10" value="Data Source=10.168.1.6\v2016;Initial Catalog=NBJC_Common;User ID=sa;Password=fuqing68+++" />
+    <add key="ConnectionString11" value="Data Source=.;Initial Catalog=ERP;User ID=sa;Password=fuqing68+++" />
+  </variables>
+  <propertySets>
+    <propertySet name="erp" template="master.cst">
+      <property name="SourceDatabase">
+        <connectionString>$(ConnectionString11)</connectionString>
+        <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
+      </property>
+      <property name="RootNamespace">ERP</property>
+      <property name="AreaName">Erp</property>
+      <property name="TableOwner">dbo</property>
+      <property name="OutputDirectory">./output</property>
+    </propertySet>
+  </propertySets>
+</codeSmith>

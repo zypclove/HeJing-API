@@ -1,0 +1,108 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="XML"%>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" %>
+<%@ Property Name="RootNamespace" Type="String" Category="Context" %>
+<%@ Property Name="AreaName" Type="String" Category="Context" %>
+<%@ Property Name="ClassName" Type="String" Category="Context" %>
+<%@ Map Name="CSharpAlias" Src="System-CSharpAlias" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Design" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<script runat="template">
+<!-- #include file="common.cst" -->
+</script>
+using <%=RootNamespace%>.HostApp.Services;
+using <%=RootNamespace%>.Shared.DTO.<%=ClassName%>;
+
+namespace <%=RootNamespace%>.HostApp.Controllers;
+
+/// <summary>
+/// <%= SourceTable.Description %>
+/// </summary>
+[Area("<%=AreaName%>")]
+public class <%=ClassName%>Controller : AppControllerBase
+{
+    private readonly <%=ClassName%>Service _service;
+
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    /// <param name="service"></param>
+    public <%=ClassName%>Controller(IServiceProvider serviceProvider, <%=ClassName%>Service service) :
+        base(serviceProvider)
+    {
+        _service = service;
+    }
+
+    /// <summary>
+    /// 新增
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<ApiResult<Guid>> Create(<%=ClassName%>CreateInDto input)
+    {
+        var result = await _service.Create(input);
+        return Success(result);
+    }
+
+    /// <summary>
+    /// 更新
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<ApiResult<bool>> Update(<%=ClassName%>UpdateInDto input)
+    {
+        var result = await _service.Update(input);
+        return Success(result);
+    }
+
+    /// <summary>
+    /// 删除
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<ApiResult<bool>> Delete(<%=ClassName%>DeleteInDto input)
+    {
+        var result = await _service.Delete(input);
+        return Success(result);
+    }
+
+    /// <summary>
+    /// 批量删除
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<ApiResult<bool>> BatchDelete(<%=ClassName%>BatchDeleteInDto input)
+    {
+        var result = await _service.BatchDelete(input);
+        return Success(result);
+    }
+
+    /// <summary>
+    /// 获取清单
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<ApiResult<PagingOut<<%=ClassName%>QueryOutDto>>> Query([FromQuery] <%=ClassName%>QueryInDto input)
+    {
+        var result = await _service.Query(input);
+        return Success(result);
+    }
+
+    /// <summary>
+    /// 获取详情
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<ApiResult<<%=ClassName%>GetOutDto>> Get([FromQuery] <%=ClassName%>GetInDto input)
+    {
+        var result = await _service.Get(input);
+        return Success(result);
+    }
+}

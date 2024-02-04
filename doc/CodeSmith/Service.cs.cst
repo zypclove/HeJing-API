@@ -1,0 +1,142 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="XML"%>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="Context" %>
+<%@ Property Name="RootNamespace" Type="String" Category="Context" %>
+<%@ Property Name="ClassName" Type="String" Category="Context" %>
+<%@ Map Name="CSharpAlias" Src="System-CSharpAlias" %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Assembly Name="System.Design" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+using <%=RootNamespace%>.Shared.DTO.<%=ClassName%>;
+
+namespace <%=RootNamespace%>.HostApp.Services;
+
+/// <summary>
+/// <%= SourceTable.Description %>
+/// </summary>
+public class <%=ClassName%>Service : ServiceBase
+{
+    private readonly ERPDbContext _dbContext;
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    public <%=ClassName%>Service(IServiceProvider serviceProvider) : base(serviceProvider)
+    {
+        _dbContext = serviceProvider.GetRequiredService<ERPDbContext>();
+    }
+
+    /// <summary>
+    /// 新增
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<Guid> Create(<%=ClassName%>CreateInDto input)
+    {
+        var model = Mapper.Map<<%= StringUtil.ToSingular(SourceTable.Name) %>>(input);
+        
+        model.Id = NewId.NextSequentialGuid();
+        
+        await _dbContext.<%=StringUtil.ToPlural(SourceTable.Name)%>.AddAsync(model);
+
+        await _dbContext.SaveChangesAsync();
+
+        return model.Id;
+    }
+
+    /// <summary>
+    /// 更新
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<bool> Update(<%=ClassName%>UpdateInDto input)
+    {
+        var model = await _dbContext.<%=StringUtil.ToPlural(SourceTable.Name)%>.SingleAsync(x => x.<%= GetPrimaryKeyName() %>.Equals(input.<%= GetPrimaryKeyName() %>));
+
+        Mapper.Map(input, model);
+
+        model.LastModifyTime = DateTimeOffset.Now;
+
+        await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
+
+    /// <summary>
+    /// 删除
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<bool> Delete(<%=ClassName%>DeleteInDto input)
+    {
+        var model = await _dbContext.<%=StringUtil.ToPlural(SourceTable.Name)%>.SingleAsync(x => x.<%= GetPrimaryKeyName() %>.Equals(input.<%= GetPrimaryKeyName() %>));
+
+        _dbContext.<%=StringUtil.ToPlural(SourceTable.Name)%>.Remove(model);
+
+        await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
+
+    /// <summary>
+    /// 批量删除
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<bool> BatchDelete(<%=ClassName%>BatchDeleteInDto input)
+    {
+        var model = await _dbContext.<%=StringUtil.ToPlural(SourceTable.Name)%>.Where(x => input.<%= GetPrimaryKeyName() %>s.Contains(x.<%= GetPrimaryKeyName() %>)).ToListAsync();
+
+        _dbContext.<%=StringUtil.ToPlural(SourceTable.Name)%>.RemoveRange(model);
+
+        await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
+
+    /// <summary>
+    /// 获取清单
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<PagingOut<<%=ClassName%>QueryOutDto>> Query(<%=ClassName%>QueryInDto input)
+    {
+        var query = from a in _dbContext.<%=StringUtil.ToPlural(SourceTable.Name)%>.AsNoTracking()
+                    select a;
+
+        #region filter
+        #endregion
+
+        var total = await query.CountAsync();
+
+        var items = await query
+            .OrderByDescending(x=>x.LastModifyTime)
+            .Skip((input.PageIndex - 1) * input.PageSize)
+            .Take(input.PageSize)
+            .ToListAsync();
+
+        var itemDtos = Mapper.Map<IList<<%=ClassName%>QueryOutDto>>(items);
+
+        return new PagingOut<<%=ClassName%>QueryOutDto>(total, itemDtos);
+    }
+
+    /// <summary>
+    /// 获取详情
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    public async Task<<%=ClassName%>GetOutDto> Get(<%=ClassName%>GetInDto input)
+    {
+        var query = from a in _dbContext.<%=StringUtil.ToPlural(SourceTable.Name)%>.AsNoTracking()
+                    where a.<%= GetPrimaryKeyName() %> == input.<%= GetPrimaryKeyName() %>
+                    select a;
+
+        var items = await query.SingleAsync();
+
+        return Mapper.Map<<%=ClassName%>GetOutDto>(items);
+    }
+}
+
+<script runat="template">
+<!-- #include file="common.cst" -->
+</script>
