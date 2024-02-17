@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using MediatR;
+using CommonMormon.Infrastructure.Core.Utils;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace CommonMormon.Infrastructure.API.Controllers;
 
@@ -22,6 +23,7 @@ public abstract class AppControllerBase : Controller
         _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         Logger = _serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(GetType());
         Mapper = _serviceProvider.GetRequiredService<IMapper>();
+        Configuration = _serviceProvider.GetRequiredService<IConfiguration>();
     }
 
     /// <summary>
@@ -33,6 +35,11 @@ public abstract class AppControllerBase : Controller
     /// 对象映射
     /// </summary>
     protected IMapper Mapper { get; }
+
+    /// <summary>
+    /// 配置
+    /// </summary>
+    protected IConfiguration Configuration { get; }
 
     /// <summary>
     /// 成功

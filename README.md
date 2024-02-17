@@ -10,6 +10,16 @@ HeJing 是一个基础架构，用于创建基于 ASP.NET Core 平台的软件�
 
 ## 功能清单
 
+## 相关系统
+|系统|端口|域名|
+|-|-|-|
+|安全令牌服务（STS）|44310|sts.skoruba.local|
+|身份验证管理API|44302|admin-api.skoruba.local|
+|身份验证管理UI|44303|admin.skoruba.local|
+|身份验证扩展API|7238|-|
+|身份验证扩展UI|3305|-|
+|-|-|-|
+
 ## 联系我
 
 - 微信公众号：南荣相如

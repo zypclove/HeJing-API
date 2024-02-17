@@ -13,17 +13,17 @@
     <add key="ConnectionString9" value="Data Source=10.168.1.6\v2016;Initial Catalog=NBJC;User ID=sa;Password=fuqing68+++" />
     <add key="ConnectionString10" value="Data Source=10.168.1.6\v2016;Initial Catalog=NBJC_Common;User ID=sa;Password=fuqing68+++" />
     <add key="ConnectionString11" value="Data Source=.;Initial Catalog=ERP;User ID=sa;Password=fuqing68+++" />
+    <add key="ConnectionString12" value="Data Source=.;Initial Catalog=IdentityServerPlus;User ID=sa;Password=fuqing68+++" />
   </variables>
   <propertySets>
-    <propertySet name="erp" template="master.cst">
+    <propertySet name="IdentityServerPlus" template="master.cst">
       <property name="SourceDatabase">
-        <connectionString>$(ConnectionString11)</connectionString>
+        <connectionString>$(ConnectionString12)</connectionString>
         <providerType>SchemaExplorer.SqlSchemaProvider,SchemaExplorer.SqlSchemaProvider</providerType>
       </property>
-      <property name="RootNamespace">ERP</property>
-      <property name="AreaName">Erp</property>
-      <property name="TableOwner">dbo</property>
-      <property name="OutputDirectory">./output</property>
+      <property name="RootNamespace">IdentityServerPlus</property>
+      <property name="AreaName">isp</property>
+      <property name="OutputDirectory">D:\qiand-life\local\2-areas\invest\programming\HeJing-API\doc\CodeSmith\output</property>
     </propertySet>
   </propertySets>
 </codeSmith>
