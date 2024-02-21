@@ -75,6 +75,7 @@ HeJing 是一个基础架构，用于创建基于 ASP\.NET Core+Vue 平台的软
 | RabbitMQ              | 消息队列           | [https://www.rabbitmq.com/](https://www.rabbitmq.com/)                                               |
 | Redis                 | 内存数据存储       | [https://redis.io/](https://redis.io/)                                                               |
 | MongoDB               | NoSql 数据库       | [https://www.mongodb.com](https://www.mongodb.com)                                                   |
+| Serilog               | 日志框架           | [https://github.com/serilog/serilog](https://github.com/serilog/serilog)                             |
 | LogStash              | 日志收集工具       | [https://github.com/elastic/logstash](https://github.com/elastic/logstash)                           |
 | Kibana                | 日志可视化查看工具 | [https://github.com/elastic/kibana](https://github.com/elastic/kibana)                               |
 | Nginx                 | Web 服务器         | [https://www.nginx.com/](https://www.nginx.com/)                                                     |
