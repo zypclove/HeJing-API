@@ -6,7 +6,7 @@ namespace CommonServer.HostApp.Controllers;
 /// <summary>
 /// 操作日志
 /// </summary>
-[Area("isp")]
+[Area("common")]
 public class AppOperationLogController : AppControllerBase
 {
     private readonly AppOperationLogService _service;

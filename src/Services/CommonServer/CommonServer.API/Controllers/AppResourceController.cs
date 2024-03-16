@@ -7,7 +7,7 @@ namespace CommonServer.HostApp.Controllers;
 /// <summary>
 /// 资源
 /// </summary>
-[Area("isp")]
+[Area("common")]
 public class AppResourceController : AppControllerBase
 {
     private readonly AppResourceService _service;

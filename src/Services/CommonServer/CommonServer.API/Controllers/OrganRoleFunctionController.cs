@@ -6,7 +6,7 @@ namespace CommonServer.HostApp.Controllers;
 /// <summary>
 /// 角色功能
 /// </summary>
-[Area("isp")]
+[Area("common")]
 public class OrganRoleFunctionController : AppControllerBase
 {
     private readonly OrganRoleFunctionService _service;

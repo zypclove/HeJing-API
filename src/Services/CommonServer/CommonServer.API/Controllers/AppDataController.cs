@@ -6,7 +6,7 @@ namespace CommonServer.HostApp.Controllers;
 /// <summary>
 /// 数据
 /// </summary>
-[Area("isp")]
+[Area("common")]
 public class AppDataController : AppControllerBase
 {
     private readonly AppDataService _service;

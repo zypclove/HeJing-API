@@ -1,4 +1,5 @@
 using CommonServer.API.Mappers;
+using CommonServer.HostApp.Services;
 using Newtonsoft.Json;
 using System.Reflection;
 
@@ -33,13 +34,13 @@ services.AddDbContext<CommonServerDbContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("CommonServerDbConnection")!, b => b.MigrationsAssembly("CommonServer.API"));
 });
 
-//services.Scan(
-//    scan => scan
-//    .FromAssemblyOf<BusinessEnterpriseCategoryService>()
-//    .AddClasses(classes => classes.Where(
-//        t => t.Name.EndsWith("Service", StringComparison.Ordinal)))
-//    .AsSelf()
-//    .WithScopedLifetime());
+services.Scan(
+    scan => scan
+    .FromAssemblyOf<AppsService>()
+    .AddClasses(classes => classes.Where(
+        t => t.Name.EndsWith("Service", StringComparison.Ordinal)))
+    .AsSelf()
+    .WithScopedLifetime());
 
 services.AddAutoMapper(typeof(DtoToDomainProfile));
 

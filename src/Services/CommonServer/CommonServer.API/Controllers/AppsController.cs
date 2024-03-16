@@ -6,7 +6,7 @@ namespace CommonServer.HostApp.Controllers;
 /// <summary>
 /// 应用
 /// </summary>
-[Area("isp")]
+[Area("common")]
 public class AppsController : AppControllerBase
 {
     private readonly AppsService _service;

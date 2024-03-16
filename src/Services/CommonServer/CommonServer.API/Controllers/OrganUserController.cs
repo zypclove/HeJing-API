@@ -6,7 +6,7 @@ namespace CommonServer.HostApp.Controllers;
 /// <summary>
 /// 用户
 /// </summary>
-[Area("isp")]
+[Area("common")]
 public class OrganUserController : AppControllerBase
 {
     private readonly OrganUserService _service;
