@@ -10,8 +10,7 @@ using CommonServer.Shared.DTO.OrganRoleData;
 using CommonServer.Shared.DTO.OrganRoleFunction;
 using CommonServer.Shared.DTO.OrganRoleResource;
 using CommonServer.Shared.DTO.Organs;
-using CommonServer.Shared.DTO.OrganUser;
-using CommonServer.Shared.DTO.OrganUserRole;
+using CommonServer.Shared.DTO.OrganEmployeeRole;
 
 namespace CommonServer.API.Mappers;
 
@@ -68,18 +67,11 @@ public class DtoToDomainProfile : Profile
         CreateMap<Organs, OrgansGetOutDto>();
         #endregion
 
-        #region OrganUser
-        CreateMap<OrganUserCreateInDto, OrganUser>();
-        CreateMap<OrganUserUpdateInDto, OrganUser>();
-        CreateMap<OrganUser, OrganUserQueryOutDto>();
-        CreateMap<OrganUser, OrganUserGetOutDto>();
-        #endregion
-
-        #region OrganUserRole
-        CreateMap<OrganUserRoleCreateInDto, OrganUserRole>();
-        CreateMap<OrganUserRoleUpdateInDto, OrganUserRole>();
-        CreateMap<OrganUserRole, OrganUserRoleQueryOutDto>();
-        CreateMap<OrganUserRole, OrganUserRoleGetOutDto>();
+        #region OrganEmployeeRole
+        CreateMap<OrganEmployeeRoleCreateInDto, OrganEmployeeRole>();
+        CreateMap<OrganEmployeeRoleUpdateInDto, OrganEmployeeRole>();
+        CreateMap<OrganEmployeeRole, OrganEmployeeRoleQueryOutDto>();
+        CreateMap<OrganEmployeeRole, OrganEmployeeRoleGetOutDto>();
         #endregion
 
         #region OrganRole

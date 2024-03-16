@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CommonServer.API.Migrations
 {
     [DbContext(typeof(CommonServerDbContext))]
-    [Migration("20240316075247_FirstInit")]
+    [Migration("20240316085413_FirstInit")]
     partial class FirstInit
     {
         /// <inheritdoc />
@@ -416,19 +416,53 @@ namespace CommonServer.API.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasComment("联系电话");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier")
+                    b.Property<string>("UserId")
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)")
                         .HasComment("用户标识");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("OrganEmployee", t =>
                         {
                             t.HasComment("员工");
+                        });
+                });
+
+            modelBuilder.Entity("CommonServer.Domain.Model.OrganEmployeeRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("标识");
+
+                    b.Property<DateTimeOffset>("CreateTime")
+                        .HasColumnType("datetimeoffset")
+                        .HasComment("创建时间");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("用户标识");
+
+                    b.Property<DateTimeOffset>("LastModifyTime")
+                        .HasColumnType("datetimeoffset")
+                        .HasComment("最后更新时间");
+
+                    b.Property<Guid>("RoleId")
+                        .HasMaxLength(50)
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("角色标识");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("OrganEmployeeRole", t =>
+                        {
+                            t.HasComment("员工角色");
                         });
                 });
 
@@ -581,101 +615,6 @@ namespace CommonServer.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CommonServer.Domain.Model.OrganUser", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("标识");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int")
-                        .HasComment("访问失败计数");
-
-                    b.Property<DateTimeOffset>("CreateTime")
-                        .HasColumnType("datetimeoffset")
-                        .HasComment("创建时间");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("邮箱");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit")
-                        .HasComment("邮箱已确认");
-
-                    b.Property<DateTimeOffset>("LastModifyTime")
-                        .HasColumnType("datetimeoffset")
-                        .HasComment("最后更新时间");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit")
-                        .HasComment("锁定已启用");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset")
-                        .HasComment("最后锁定时间");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)")
-                        .HasComment("手机");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit")
-                        .HasComment("手机已确认");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit")
-                        .HasComment("双因素启用");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasComment("用户名称");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OrganUser", t =>
-                        {
-                            t.HasComment("用户");
-                        });
-                });
-
-            modelBuilder.Entity("CommonServer.Domain.Model.OrganUserRole", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("标识");
-
-                    b.Property<DateTimeOffset>("CreateTime")
-                        .HasColumnType("datetimeoffset")
-                        .HasComment("创建时间");
-
-                    b.Property<DateTimeOffset>("LastModifyTime")
-                        .HasColumnType("datetimeoffset")
-                        .HasComment("最后更新时间");
-
-                    b.Property<Guid>("RoleId")
-                        .HasMaxLength(50)
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("角色标识");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("用户标识");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("OrganUserRole", t =>
-                        {
-                            t.HasComment("用户角色");
-                        });
-                });
-
             modelBuilder.Entity("CommonServer.Domain.Model.Organs", b =>
                 {
                     b.Property<Guid>("Id")
@@ -792,13 +731,26 @@ namespace CommonServer.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CommonServer.Domain.Model.OrganUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("Department");
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("CommonServer.Domain.Model.OrganEmployeeRole", b =>
+                {
+                    b.HasOne("CommonServer.Domain.Model.OrganEmployee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CommonServer.Domain.Model.OrganRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("CommonServer.Domain.Model.OrganRoleData", b =>
@@ -860,25 +812,6 @@ namespace CommonServer.API.Migrations
                     b.Navigation("Resource");
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("CommonServer.Domain.Model.OrganUserRole", b =>
-                {
-                    b.HasOne("CommonServer.Domain.Model.OrganRole", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CommonServer.Domain.Model.OrganUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CommonServer.Domain.Model.AppResource", b =>

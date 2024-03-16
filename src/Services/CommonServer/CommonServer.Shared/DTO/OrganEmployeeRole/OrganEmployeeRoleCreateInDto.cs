@@ -1,9 +1,9 @@
-﻿namespace CommonServer.Shared.DTO.OrganUserRole;
+﻿namespace CommonServer.Shared.DTO.OrganEmployeeRole;
 
 /// <summary>
 /// 用户角色
 /// </summary>
-public class OrganUserRoleGetOutDto : DtoBase
+public class OrganEmployeeRoleCreateInDto : DtoBase
 {
     /// <summary>
     /// 标识
@@ -18,4 +18,3 @@ public class OrganUserRoleGetOutDto : DtoBase
     /// </summary>
     public Guid RoleId { get; set; }
 }
-

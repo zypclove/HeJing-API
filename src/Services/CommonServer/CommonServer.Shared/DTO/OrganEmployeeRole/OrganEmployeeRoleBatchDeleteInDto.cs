@@ -1,9 +1,9 @@
-﻿namespace CommonServer.Shared.DTO.OrganUserRole;
+﻿namespace CommonServer.Shared.DTO.OrganEmployeeRole;
 
 /// <summary>
 /// 用户角色
 /// </summary>
-public class OrganUserRoleBatchDeleteInDto
+public class OrganEmployeeRoleBatchDeleteInDto
 {
     /// <summary>
     /// 标识

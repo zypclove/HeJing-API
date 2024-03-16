@@ -1,18 +1,18 @@
-﻿using CommonServer.Shared.DTO.OrganUser;
+﻿using CommonServer.Shared.DTO.OrganEmployeeRole;
 
 namespace CommonServer.HostApp.Services;
 
 /// <summary>
-/// 用户
+/// 用户角色
 /// </summary>
-public class OrganUserService : ServiceBase
+public class OrganEmployeeRoleService : ServiceBase
 {
     private readonly CommonServerDbContext _dbContext;
     /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public OrganUserService(IServiceProvider serviceProvider) : base(serviceProvider)
+    public OrganEmployeeRoleService(IServiceProvider serviceProvider) : base(serviceProvider)
     {
         _dbContext = serviceProvider.GetRequiredService<CommonServerDbContext>();
     }
@@ -22,13 +22,13 @@ public class OrganUserService : ServiceBase
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<Guid> Create(OrganUserCreateInDto input)
+    public async Task<Guid> Create(OrganEmployeeRoleCreateInDto input)
     {
-        var model = Mapper.Map<OrganUser>(input);
+        var model = Mapper.Map<OrganEmployeeRole>(input);
         
         model.Id = NewId.NextSequentialGuid();
         
-        await _dbContext.OrganUsers.AddAsync(model);
+        await _dbContext.OrganEmployeeRoles.AddAsync(model);
 
         await _dbContext.SaveChangesAsync();
 
@@ -40,9 +40,9 @@ public class OrganUserService : ServiceBase
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<bool> Update(OrganUserUpdateInDto input)
+    public async Task<bool> Update(OrganEmployeeRoleUpdateInDto input)
     {
-        var model = await _dbContext.OrganUsers.SingleAsync(x => x.Id.Equals(input.Id));
+        var model = await _dbContext.OrganEmployeeRoles.SingleAsync(x => x.Id.Equals(input.Id));
 
         Mapper.Map(input, model);
 
@@ -58,11 +58,11 @@ public class OrganUserService : ServiceBase
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<bool> Delete(OrganUserDeleteInDto input)
+    public async Task<bool> Delete(OrganEmployeeRoleDeleteInDto input)
     {
-        var model = await _dbContext.OrganUsers.SingleAsync(x => x.Id.Equals(input.Id));
+        var model = await _dbContext.OrganEmployeeRoles.SingleAsync(x => x.Id.Equals(input.Id));
 
-        _dbContext.OrganUsers.Remove(model);
+        _dbContext.OrganEmployeeRoles.Remove(model);
 
         await _dbContext.SaveChangesAsync();
 
@@ -74,11 +74,11 @@ public class OrganUserService : ServiceBase
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<bool> BatchDelete(OrganUserBatchDeleteInDto input)
+    public async Task<bool> BatchDelete(OrganEmployeeRoleBatchDeleteInDto input)
     {
-        var model = await _dbContext.OrganUsers.Where(x => input.Ids.Contains(x.Id)).ToListAsync();
+        var model = await _dbContext.OrganEmployeeRoles.Where(x => input.Ids.Contains(x.Id)).ToListAsync();
 
-        _dbContext.OrganUsers.RemoveRange(model);
+        _dbContext.OrganEmployeeRoles.RemoveRange(model);
 
         await _dbContext.SaveChangesAsync();
 
@@ -90,9 +90,9 @@ public class OrganUserService : ServiceBase
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<PagingOut<OrganUserQueryOutDto>> Query(OrganUserQueryInDto input)
+    public async Task<PagingOut<OrganEmployeeRoleQueryOutDto>> Query(OrganEmployeeRoleQueryInDto input)
     {
-        var query = from a in _dbContext.OrganUsers.AsNoTracking()
+        var query = from a in _dbContext.OrganEmployeeRoles.AsNoTracking()
                     select a;
 
         #region filter
@@ -106,9 +106,9 @@ public class OrganUserService : ServiceBase
             .Take(input.PageSize)
             .ToListAsync();
 
-        var itemDtos = Mapper.Map<IList<OrganUserQueryOutDto>>(items);
+        var itemDtos = Mapper.Map<IList<OrganEmployeeRoleQueryOutDto>>(items);
 
-        return new PagingOut<OrganUserQueryOutDto>(total, itemDtos);
+        return new PagingOut<OrganEmployeeRoleQueryOutDto>(total, itemDtos);
     }
 
     /// <summary>
@@ -116,14 +116,14 @@ public class OrganUserService : ServiceBase
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    public async Task<OrganUserGetOutDto> Get(OrganUserGetInDto input)
+    public async Task<OrganEmployeeRoleGetOutDto> Get(OrganEmployeeRoleGetInDto input)
     {
-        var query = from a in _dbContext.OrganUsers.AsNoTracking()
+        var query = from a in _dbContext.OrganEmployeeRoles.AsNoTracking()
                     where a.Id == input.Id
                     select a;
 
         var items = await query.SingleAsync();
 
-        return Mapper.Map<OrganUserGetOutDto>(items);
+        return Mapper.Map<OrganEmployeeRoleGetOutDto>(items);
     }
 }

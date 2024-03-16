@@ -164,29 +164,6 @@ namespace CommonServer.API.Migrations
                 comment: "机构");
 
             migrationBuilder.CreateTable(
-                name: "OrganUser",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "标识"),
-                    UserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "用户名称"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "邮箱"),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false, comment: "邮箱已确认"),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "手机"),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false, comment: "手机已确认"),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false, comment: "锁定已启用"),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true, comment: "最后锁定时间"),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false, comment: "双因素启用"),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false, comment: "访问失败计数"),
-                    CreateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "创建时间"),
-                    LastModifyTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "最后更新时间")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrganUser", x => x.Id);
-                },
-                comment: "用户");
-
-            migrationBuilder.CreateTable(
                 name: "OrganRoleData",
                 columns: table => new
                 {
@@ -308,40 +285,12 @@ namespace CommonServer.API.Migrations
                 comment: "部门");
 
             migrationBuilder.CreateTable(
-                name: "OrganUserRole",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "标识"),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "用户标识"),
-                    RoleId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 50, nullable: false, comment: "角色标识"),
-                    CreateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "创建时间"),
-                    LastModifyTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "最后更新时间")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrganUserRole", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrganUserRole_OrganRole_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "OrganRole",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrganUserRole_OrganUser_UserId",
-                        column: x => x.UserId,
-                        principalTable: "OrganUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                },
-                comment: "用户角色");
-
-            migrationBuilder.CreateTable(
                 name: "OrganEmployee",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "标识"),
                     DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "部门标识"),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "用户标识"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true, comment: "用户标识"),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "姓名"),
                     Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "编号"),
                     Gender = table.Column<int>(type: "int", maxLength: 200, nullable: false, comment: "性别"),
@@ -363,13 +312,36 @@ namespace CommonServer.API.Migrations
                         principalTable: "OrganDepartment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OrganEmployee_OrganUser_UserId",
-                        column: x => x.UserId,
-                        principalTable: "OrganUser",
-                        principalColumn: "Id");
                 },
                 comment: "员工");
+
+            migrationBuilder.CreateTable(
+                name: "OrganEmployeeRole",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "标识"),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "用户标识"),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", maxLength: 50, nullable: false, comment: "角色标识"),
+                    CreateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "创建时间"),
+                    LastModifyTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "最后更新时间")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganEmployeeRole", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrganEmployeeRole_OrganEmployee_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "OrganEmployee",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrganEmployeeRole_OrganRole_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "OrganRole",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                },
+                comment: "员工角色");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppResource_ParentId",
@@ -392,9 +364,14 @@ namespace CommonServer.API.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrganEmployee_UserId",
-                table: "OrganEmployee",
-                column: "UserId");
+                name: "IX_OrganEmployeeRole_EmployeeId",
+                table: "OrganEmployeeRole",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganEmployeeRole_RoleId",
+                table: "OrganEmployeeRole",
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrganRoleData_DataId",
@@ -430,16 +407,6 @@ namespace CommonServer.API.Migrations
                 name: "IX_OrganRoleResource_RoleId",
                 table: "OrganRoleResource",
                 column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrganUserRole_RoleId",
-                table: "OrganUserRole",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrganUserRole_UserId",
-                table: "OrganUserRole",
-                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -452,7 +419,7 @@ namespace CommonServer.API.Migrations
                 name: "Apps");
 
             migrationBuilder.DropTable(
-                name: "OrganEmployee");
+                name: "OrganEmployeeRole");
 
             migrationBuilder.DropTable(
                 name: "OrganRoleData");
@@ -464,10 +431,7 @@ namespace CommonServer.API.Migrations
                 name: "OrganRoleResource");
 
             migrationBuilder.DropTable(
-                name: "OrganUserRole");
-
-            migrationBuilder.DropTable(
-                name: "OrganDepartment");
+                name: "OrganEmployee");
 
             migrationBuilder.DropTable(
                 name: "AppData");
@@ -482,7 +446,7 @@ namespace CommonServer.API.Migrations
                 name: "OrganRole");
 
             migrationBuilder.DropTable(
-                name: "OrganUser");
+                name: "OrganDepartment");
 
             migrationBuilder.DropTable(
                 name: "Organs");

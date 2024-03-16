@@ -6,18 +6,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CommonServer.Domain.Model;
 
 /// <summary>
-/// 用户角色
+/// 员工角色
 /// </summary>
-[Table("OrganUserRole")]
-[Comment("用户角色")]
-public partial class OrganUserRole : Entity
+[Table("OrganEmployeeRole")]
+[Comment("员工角色")]
+public partial class OrganEmployeeRole : Entity
 {
     /// <summary>
-    /// 用户标识
+    /// 员工标识
     /// </summary>
     [Comment("用户标识")]
-    public Guid UserId { get; set; }
-    public OrganUser? User { get; set; }
+    public Guid EmployeeId { get; set; }
+    public OrganEmployee? Employee { get; set; }
     /// <summary>
     /// 角色标识
     /// </summary>

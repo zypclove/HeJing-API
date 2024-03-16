@@ -22,9 +22,9 @@ public partial class OrganEmployee : Entity
     /// <summary>
     /// 用户标识
     /// </summary>
+    [StringLength(450)]
     [Comment("用户标识")]
-    public Guid? UserId { get; set; } = null!;
-    public OrganUser? User { get; set; }
+    public string? UserId { get; set; }
     /// <summary>
     /// 姓名
     /// </summary>

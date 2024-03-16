@@ -1,9 +1,9 @@
-﻿namespace CommonServer.Shared.DTO.OrganUser;
+﻿namespace CommonServer.Shared.DTO.OrganEmployeeRole;
 
 /// <summary>
-/// 用户
+/// 用户角色
 /// </summary>
-public class OrganUserGetInDto
+public class OrganEmployeeRoleGetInDto
 {
     /// <summary>
     /// 标识
