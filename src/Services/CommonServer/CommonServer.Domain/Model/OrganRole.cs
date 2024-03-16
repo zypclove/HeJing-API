@@ -13,6 +13,12 @@ namespace CommonServer.Domain.Model;
 public partial class OrganRole : Entity
 {
     /// <summary>
+    /// 机构标识
+    /// </summary>
+    [Comment("机构标识")]
+    public Guid OrganId { get; set; }
+    public Organs? Organ { get; set; }
+    /// <summary>
     /// 编号
     /// </summary>
     [StringLength(50)]

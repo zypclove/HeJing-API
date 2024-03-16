@@ -121,23 +121,6 @@ namespace CommonServer.API.Migrations
                 comment: "应用");
 
             migrationBuilder.CreateTable(
-                name: "OrganRole",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "标识"),
-                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "编号"),
-                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "名称"),
-                    SortNo = table.Column<int>(type: "int", nullable: false, comment: "排序号"),
-                    CreateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "创建时间"),
-                    LastModifyTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "最后更新时间")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrganRole", x => x.Id);
-                },
-                comment: "角色");
-
-            migrationBuilder.CreateTable(
                 name: "Organs",
                 columns: table => new
                 {
@@ -162,6 +145,92 @@ namespace CommonServer.API.Migrations
                     table.PrimaryKey("PK_Organs", x => x.Id);
                 },
                 comment: "机构");
+
+            migrationBuilder.CreateTable(
+                name: "OrganDepartment",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "标识"),
+                    OrganId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "机构标识"),
+                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "编号"),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "名称"),
+                    Remark = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true, comment: "备注"),
+                    EnabledFlag = table.Column<bool>(type: "bit", nullable: false, comment: "是否启用"),
+                    SortNo = table.Column<int>(type: "int", nullable: false, comment: "排序号"),
+                    CreateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "创建时间"),
+                    LastModifyTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "最后更新时间"),
+                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "父级标识")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganDepartment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrganDepartment_OrganDepartment_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "OrganDepartment",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_OrganDepartment_Organs_OrganId",
+                        column: x => x.OrganId,
+                        principalTable: "Organs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                },
+                comment: "部门");
+
+            migrationBuilder.CreateTable(
+                name: "OrganRole",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "标识"),
+                    OrganId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "机构标识"),
+                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "编号"),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "名称"),
+                    SortNo = table.Column<int>(type: "int", nullable: false, comment: "排序号"),
+                    CreateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "创建时间"),
+                    LastModifyTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "最后更新时间")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganRole", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrganRole_Organs_OrganId",
+                        column: x => x.OrganId,
+                        principalTable: "Organs",
+                        principalColumn: "Id");
+                },
+                comment: "角色");
+
+            migrationBuilder.CreateTable(
+                name: "OrganEmployee",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "标识"),
+                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "部门标识"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true, comment: "用户标识"),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "姓名"),
+                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "编号"),
+                    Gender = table.Column<int>(type: "int", maxLength: 200, nullable: false, comment: "性别"),
+                    NickName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true, comment: "昵称"),
+                    Tel = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true, comment: "联系电话"),
+                    Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true, comment: "电子邮箱"),
+                    Remark = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true, comment: "备注"),
+                    EnabledFlag = table.Column<bool>(type: "bit", nullable: false, comment: "是否启用"),
+                    SortNo = table.Column<int>(type: "int", nullable: false, comment: "排序号"),
+                    CreateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "创建时间"),
+                    LastModifyTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "最后更新时间")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganEmployee", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrganEmployee_OrganDepartment_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "OrganDepartment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                },
+                comment: "员工");
 
             migrationBuilder.CreateTable(
                 name: "OrganRoleData",
@@ -253,69 +322,6 @@ namespace CommonServer.API.Migrations
                 comment: "角色资源");
 
             migrationBuilder.CreateTable(
-                name: "OrganDepartment",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "标识"),
-                    OrganId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "机构标识"),
-                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "编号"),
-                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "名称"),
-                    Remark = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true, comment: "备注"),
-                    EnabledFlag = table.Column<bool>(type: "bit", nullable: false, comment: "是否启用"),
-                    SortNo = table.Column<int>(type: "int", nullable: false, comment: "排序号"),
-                    CreateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "创建时间"),
-                    LastModifyTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "最后更新时间"),
-                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "父级标识")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrganDepartment", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrganDepartment_OrganDepartment_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "OrganDepartment",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_OrganDepartment_Organs_OrganId",
-                        column: x => x.OrganId,
-                        principalTable: "Organs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                },
-                comment: "部门");
-
-            migrationBuilder.CreateTable(
-                name: "OrganEmployee",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "标识"),
-                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "部门标识"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true, comment: "用户标识"),
-                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false, comment: "姓名"),
-                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false, comment: "编号"),
-                    Gender = table.Column<int>(type: "int", maxLength: 200, nullable: false, comment: "性别"),
-                    NickName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true, comment: "昵称"),
-                    Tel = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true, comment: "联系电话"),
-                    Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true, comment: "电子邮箱"),
-                    Remark = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true, comment: "备注"),
-                    EnabledFlag = table.Column<bool>(type: "bit", nullable: false, comment: "是否启用"),
-                    SortNo = table.Column<int>(type: "int", nullable: false, comment: "排序号"),
-                    CreateTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "创建时间"),
-                    LastModifyTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, comment: "最后更新时间")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrganEmployee", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrganEmployee_OrganDepartment_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "OrganDepartment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                },
-                comment: "员工");
-
-            migrationBuilder.CreateTable(
                 name: "OrganEmployeeRole",
                 columns: table => new
                 {
@@ -372,6 +378,11 @@ namespace CommonServer.API.Migrations
                 name: "IX_OrganEmployeeRole_RoleId",
                 table: "OrganEmployeeRole",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrganRole_OrganId",
+                table: "OrganRole",
+                column: "OrganId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrganRoleData_DataId",

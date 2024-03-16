@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using static MassTransit.MessageHeaders;
 
 namespace CommonServer.Domain.Model;
 
@@ -82,4 +83,6 @@ public partial class Organs : Entity
     /// </summary>
     [Comment("排序号")]
     public int SortNo { get; set; }
+    public IList<OrganRole> Roles { get; } = new List<OrganRole>();
+    public IList<OrganDepartment> Departments { get; } = new List<OrganDepartment>();
 }

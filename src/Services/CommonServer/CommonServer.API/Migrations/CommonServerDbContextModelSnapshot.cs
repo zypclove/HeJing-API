@@ -489,11 +489,17 @@ namespace CommonServer.API.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasComment("名称");
 
+                    b.Property<Guid>("OrganId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("机构标识");
+
                     b.Property<int>("SortNo")
                         .HasColumnType("int")
                         .HasComment("排序号");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrganId");
 
                     b.ToTable("OrganRole", t =>
                         {
@@ -706,7 +712,7 @@ namespace CommonServer.API.Migrations
             modelBuilder.Entity("CommonServer.Domain.Model.OrganDepartment", b =>
                 {
                     b.HasOne("CommonServer.Domain.Model.Organs", "Organ")
-                        .WithMany()
+                        .WithMany("Departments")
                         .HasForeignKey("OrganId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -748,6 +754,17 @@ namespace CommonServer.API.Migrations
                     b.Navigation("Employee");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("CommonServer.Domain.Model.OrganRole", b =>
+                {
+                    b.HasOne("CommonServer.Domain.Model.Organs", "Organ")
+                        .WithMany("Roles")
+                        .HasForeignKey("OrganId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Organ");
                 });
 
             modelBuilder.Entity("CommonServer.Domain.Model.OrganRoleData", b =>
@@ -819,6 +836,13 @@ namespace CommonServer.API.Migrations
             modelBuilder.Entity("CommonServer.Domain.Model.OrganDepartment", b =>
                 {
                     b.Navigation("Children");
+                });
+
+            modelBuilder.Entity("CommonServer.Domain.Model.Organs", b =>
+                {
+                    b.Navigation("Departments");
+
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

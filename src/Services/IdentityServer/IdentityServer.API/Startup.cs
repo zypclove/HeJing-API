@@ -39,7 +39,7 @@ public class Startup
             {
                 options.AccessDeniedPath = "/Identity/Account/Login";
                 options.LoginPath = "/Identity/Account/Login";
-                options.LogoutPath = "/Identity/Account/Logout";
+                options.LogoutPath = "/connect/signout";
             });
 
         // OpenIddict offers native integration with Quartz.NET to perform scheduled tasks
@@ -72,7 +72,8 @@ public class Startup
                 options.SetAuthorizationEndpointUris(Configuration["OpenIddict:Endpoints:Authorization"]!)
                        .SetTokenEndpointUris(Configuration["OpenIddict:Endpoints:Token"]!)
                        .SetIntrospectionEndpointUris(Configuration["OpenIddict:Endpoints:Introspection"]!)
-                       .SetUserinfoEndpointUris(Configuration["OpenIddict:Endpoints:Userinfo"]!);
+                       .SetUserinfoEndpointUris(Configuration["OpenIddict:Endpoints:Userinfo"]!)
+                       .SetLogoutEndpointUris(Configuration["OpenIddict:Endpoints:Logout"]!);
 
                 // Enable the authorization code, implicit and the refresh token flows.
                 options.AllowAuthorizationCodeFlow()
@@ -97,6 +98,7 @@ public class Startup
                 options.UseAspNetCore()
                        .EnableAuthorizationEndpointPassthrough()
                        .EnableAuthorizationRequestCaching()
+                       .EnableLogoutEndpointPassthrough()
                        .DisableTransportSecurityRequirement();
 
                 // Register the event handler responsible for populating userinfo responses.

@@ -1,5 +1,7 @@
 ﻿using CommonServer.Domain.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
+using static MassTransit.MessageHeaders;
 
 namespace CommonServer.Infrastructure;
 
@@ -28,5 +30,10 @@ public partial class CommonServerDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<OrganRole>()
+            .HasOne(e => e.Organ)
+            .WithMany(e => e.Roles)
+            .HasForeignKey(e => e.OrganId)
+            .OnDelete(DeleteBehavior.ClientCascade);
     }
 }
