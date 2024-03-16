@@ -15,8 +15,4 @@
     <ProjectReference Include="..\CommonServer.Shared\CommonServer.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
-
 </Project>

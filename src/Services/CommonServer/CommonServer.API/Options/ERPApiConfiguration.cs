@@ -1,4 +1,4 @@
-﻿namespace IdentityServerPlus.API.Options;
+﻿namespace CommonServer.API.Options;
 
 /// <summary>
 /// 应用设置
@@ -9,7 +9,7 @@ public class ChangLiApiConfiguration
 
     public string ApiVersion { get; set; } = null!;
 
-    public string IdentityServerBaseUrl { get; set; } = null!;
+    public string CommonServerBaseUrl { get; set; } = null!;
 
     public string ApiBaseUrl { get; set; } = null!;
 
