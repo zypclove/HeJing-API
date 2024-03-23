@@ -22,7 +22,8 @@ public class Startup
 
         services.AddDbContext<IdentityServerDbContext>(options =>
         {
-            options.UseSqlServer(connectionString, b => b.MigrationsAssembly("IdentityServer.API"));
+            //options.UseSqlServer(connectionString, b => b.MigrationsAssembly("IdentityServer.API"));
+            options.UseNpgsql(connectionString, b => b.MigrationsAssembly("IdentityServer.API"));
 
             // Register the entity sets needed by OpenIddict.
             options.UseOpenIddict();
